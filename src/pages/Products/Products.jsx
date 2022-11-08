@@ -51,42 +51,12 @@ function Products() {
                             </button>
                         </div>
                     </div>
-                    <div className="bg-white border-[1px] border-solid border-[#dce1ef] rounded p-5 mb-2.5">
-                        <h3 className="font-normal text-xl">Products Summary</h3>
-                        <div className="grid grid-cols-6 gap-6 text-[#464646]">
-                            <div className="border-r-[1px] border-solid border-[#f0f0f0]">
-                                <h3 className="mb-2.5 mt-5 text-2xl font-medium">11</h3>
-                                <span>Total Customers</span>
-                            </div>
-                            <div className="border-r-[1px] border-solid border-[#f0f0f0]">
-                                <h3 className="mb-2.5 mt-5 text-2xl font-medium">11</h3>
-                                <span className="text-[#84c529]">Active Customers</span>
-                            </div>
-                            <div className="border-r-[1px] border-solid border-[#f0f0f0]">
-                                <h3 className="mb-2.5 mt-5 text-2xl font-medium">11</h3>
-                                <span className="text-[#fc2d42]">Inactive Customers</span>
-                            </div>
-                            <div className="border-r-[1px] border-solid border-[#f0f0f0]">
-                                <h3 className="mb-2.5 mt-5 text-2xl font-medium">11</h3>
-                                <span className="text-[#03a9f4]">Active Contacts</span>
-                            </div>
-                            <div className="border-r-[1px] border-solid border-[#f0f0f0]">
-                                <h3 className="mb-2.5 mt-5 text-2xl font-medium">11</h3>
-                                <span className="text-[#fc2d42]">Inactive Contacts</span>
-                            </div>
-                            <div>
-                                <h3 className="mb-2.5 mt-5 text-2xl font-medium">11</h3>
-                                <span className="text-[#777] border-b-[1px] border-dashed border-[#bbb] pb-0.5">
-                                    Contacts Logged In Today
-                                </span>
-                            </div>
-                        </div>
-                    </div>
+
                     <div className="bg-white border-[1px] border-solid border-[#dce1ef] rounded p-5 mb-2.5">
                         <div className="flex items-center mt-2.5 mb-5">
                             <input id="exclude_inactive" type="checkbox" />
                             <label htmlFor="exclude_inactive" className="pl-1.5 inline-block align-middle">
-                                Exclude Inactive Customers
+                                Exclude Inactive Products
                             </label>
                         </div>
                         <div className="flex items-center justify-between">
@@ -127,9 +97,6 @@ function Products() {
                             <table className="w-full mt-8 text-[#008ece]">
                                 <thead>
                                     <tr className="text-left bg-[#f6f8fa]">
-                                        <th>
-                                            <input type="checkbox" name="" />
-                                        </th>
                                         <th>#</th>
                                         <th className="bg-[#ebf5ff]">Name</th>
                                         <th>Primary contact</th>
@@ -141,14 +108,12 @@ function Products() {
                                 <tbody>
                                     {details.map((detail) => (
                                         <tr key={detail.id}>
-                                            <td>
-                                                <input type="checkbox" name="" />
-                                            </td>
                                             <td>{detail.id}</td>
                                             <td>
-                                                <a href="/" className="hover:text-[#004b6d] pb-3 pt-2">
-                                                    {detail.name}
-                                                </a>
+                                                <Link to={'/products/' + detail.id}>
+                                                    <p className="hover:text-[#004b6d] pb-3 pt-2">{detail.name}</p>
+                                                </Link>
+
                                                 <div className="flex items-center">
                                                     <a
                                                         href="/"
@@ -171,24 +136,24 @@ function Products() {
                                                 </div>
                                             </td>
                                             <td>
-                                                <a href="/" className="hover:text-[#004b6d]">
-                                                    {detail.username}
-                                                </a>
+                                                <Link to={'/products/' + detail.id}>
+                                                    <p className="hover:text-[#004b6d] pb-3 pt-2">{detail.username}</p>
+                                                </Link>
                                             </td>
                                             <td>
-                                                <a href="/" className="hover:text-[#004b6d]">
-                                                    {detail.email}
-                                                </a>
+                                                <Link to={'/products/' + detail.id}>
+                                                    <p className="hover:text-[#004b6d] pb-3 pt-2">{detail.email}</p>
+                                                </Link>
                                             </td>
                                             <td>
-                                                <a href="/" className="hover:text-[#004b6d]">
-                                                    {detail.phone}
-                                                </a>
+                                                <Link to={'/products/' + detail.id}>
+                                                    <p className="hover:text-[#004b6d] pb-3 pt-2">{detail.phone}</p>
+                                                </Link>
                                             </td>
                                             <td>
-                                                <a href="/" className="hover:text-[#004b6d]">
-                                                    {detail.website}
-                                                </a>
+                                                <Link to={'/products/' + detail.id}>
+                                                    <p className="hover:text-[#004b6d] pb-3 pt-2">{detail.website}</p>
+                                                </Link>
                                             </td>
                                         </tr>
                                     ))}

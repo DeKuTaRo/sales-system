@@ -172,19 +172,19 @@ function Employee() {
                                                 </div>
                                             </td>
                                             <td>
-                                                <a href="/" className="hover:text-[#004b6d]">
-                                                    {detail.email}
-                                                </a>
+                                                <Link to={'/employee/' + detail.id}>
+                                                    <p className="hover:text-[#004b6d] pb-3 pt-2">{detail.email}</p>
+                                                </Link>
                                             </td>
                                             <td>
-                                                <a href="/" className="hover:text-[#004b6d]">
-                                                    {detail.phone}
-                                                </a>
+                                                <Link to={'/employee/' + detail.id}>
+                                                    <p className="hover:text-[#004b6d] pb-3 pt-2">{detail.phone}</p>
+                                                </Link>
                                             </td>
                                             <td>
-                                                <a href="/" className="hover:text-[#004b6d]">
-                                                    {detail.website}
-                                                </a>
+                                                <Link to={'/employee/' + detail.id}>
+                                                    <p className="hover:text-[#004b6d] pb-3 pt-2">{detail.website}</p>
+                                                </Link>
                                             </td>
                                         </tr>
                                     ))}
