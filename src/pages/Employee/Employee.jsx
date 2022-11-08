@@ -2,12 +2,13 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { FaFilter, FaSearch, FaPlus, FaUpload } from 'react-icons/fa';
+import { FaFilter, FaSearch, FaPlus, FaUpload, FaUserAlt } from 'react-icons/fa';
 import { FiRefreshCw } from 'react-icons/fi';
-import Sidebars from '../../components/Sidebars/Sidebars';
-import Headers from '../../components/Headers/Headers';
 
-function Products() {
+import Headers from '../../components/Headers/Headers';
+import Sidebars from '../../components/Sidebars/Sidebars';
+
+function Employee() {
     const [details, setDetails] = useState([]);
 
     const fetchDetails = async () => {
@@ -31,17 +32,23 @@ function Products() {
                     <div className="p-5 mb-2.5 flex items-center justify-between">
                         <div>
                             <button className="text-white bg-blue-600 text-sm border-[1px] border-solid border-transparent py-1.5 px-3 rounded-md inline-block font-normal uppercase hover:text-white hover:bg-blue-700">
-                                <Link to={'/productsAdd/'}>
+                                <Link to={'/employeeAdd/'}>
                                     <p className="flex items-center">
                                         <FaPlus className="pr-1" />
-                                        New product
+                                        New customer
                                     </p>
                                 </Link>
                             </button>
                             <button className="text-white bg-blue-600 text-sm border-[1px] border-solid border-transparent py-1.5 px-3 rounded-md inline-block font-normal ml-4 uppercase hover:text-white hover:bg-blue-700">
                                 <p className="flex items-center">
                                     <FaUpload className="pr-1" />
-                                    import product
+                                    import customer
+                                </p>
+                            </button>
+                            <button className="text-black bg-white text-sm border-[1px] border-solid border-transparent py-1.5 px-3 rounded-md inline-block font-normal ml-4 uppercase hover:text-black hover:bg-slate-50">
+                                <p className="flex items-center">
+                                    <FaUserAlt className="pr-1" />
+                                    contacts
                                 </p>
                             </button>
                         </div>
@@ -52,7 +59,7 @@ function Products() {
                         </div>
                     </div>
                     <div className="bg-white border-[1px] border-solid border-[#dce1ef] rounded p-5 mb-2.5">
-                        <h3 className="font-normal text-xl">Products Summary</h3>
+                        <h3 className="font-normal text-xl">Customers Summary</h3>
                         <div className="grid grid-cols-6 gap-6 text-[#464646]">
                             <div className="border-r-[1px] border-solid border-[#f0f0f0]">
                                 <h3 className="mb-2.5 mt-5 text-2xl font-medium">11</h3>
@@ -127,28 +134,22 @@ function Products() {
                             <table className="w-full mt-8 text-[#008ece]">
                                 <thead>
                                     <tr className="text-left bg-[#f6f8fa]">
-                                        <th>
-                                            <input type="checkbox" name="" />
-                                        </th>
                                         <th>#</th>
-                                        <th className="bg-[#ebf5ff]">Name</th>
-                                        <th>Primary contact</th>
+                                        <th className="bg-[#ebf5ff]">Full Name</th>
                                         <th>Primary email</th>
                                         <th>Phone</th>
-                                        <th>Website</th>
+                                        <th>Role</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {details.map((detail) => (
                                         <tr key={detail.id}>
-                                            <td>
-                                                <input type="checkbox" name="" />
-                                            </td>
                                             <td>{detail.id}</td>
                                             <td>
-                                                <a href="/" className="hover:text-[#004b6d] pb-3 pt-2">
-                                                    {detail.name}
-                                                </a>
+                                                <Link to={'/employee/' + detail.id}>
+                                                    <p className="hover:text-[#004b6d] pb-3 pt-2">{detail.name}</p>
+                                                </Link>
+
                                                 <div className="flex items-center">
                                                     <a
                                                         href="/"
@@ -169,11 +170,6 @@ function Products() {
                                                         Delete
                                                     </a>
                                                 </div>
-                                            </td>
-                                            <td>
-                                                <a href="/" className="hover:text-[#004b6d]">
-                                                    {detail.username}
-                                                </a>
                                             </td>
                                             <td>
                                                 <a href="/" className="hover:text-[#004b6d]">
@@ -202,4 +198,4 @@ function Products() {
     );
 }
 
-export default Products;
+export default Employee;

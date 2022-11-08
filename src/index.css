@@ -13,7 +13,7 @@
     }
 
     table tr td {
-      border-bottom: 1px solid #f0f0f0;
+        border-bottom: 1px solid #f0f0f0;
     }
 }
 
@@ -23,6 +23,7 @@ body {
         'Droid Sans', 'Helvetica Neue', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background-color: rgb(245 245 245);
 }
 
 code {
