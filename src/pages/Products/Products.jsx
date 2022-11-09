@@ -9,20 +9,20 @@ import Headers from '../../components/Headers/Headers';
 
 function Products() {
     const [details, setDetails] = useState([]);
-    // https://jsonplaceholder.typicode.com/users
-    // http://localhost:3000/api/v1/product/get-all?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NjgwNjQxMDMsImRhdGEiOnsidXNlckNvZGUiOiJBRE1JTiIsImZ1bGxOYW1lIjoiQURNSU5JU1RSQVRPUiIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJwaG9uZU51bWJlciI6IiNOL0EiLCJyb2xlIjoiQURNSU4iLCJsYXN0TG9naW4iOiIyMDIyLTExLTA5VDA3OjA4OjIzLjQwMVoifSwiaWF0IjoxNjY3OTc3NzAzfQ.h4urhEDcwzcnSL38zipa8qzgzPSN3hlqz8SqbauLqCY
+
+    const token = localStorage.getItem('token');
+
     const fetchDetails = async () => {
-        const data = await fetch(
-            `http://localhost:3000/api/v1/product/get-all?token=${process.env.REACT_APP_ADMIN_TOKEN}`,
-        );
+        const data = await fetch(`http://localhost:3000/api/v1/product/get-all?token=${token}`);
         const detailData = await data.json();
 
         setDetails(detailData.result.data);
-        console.log(detailData.result.data);
+        // console.log(detailData.result.data);
     };
 
     useEffect(() => {
         fetchDetails();
+        // eslint-disable-next-line
     }, []);
 
     return (
@@ -109,7 +109,7 @@ function Products() {
                                 </thead>
                                 <tbody>
                                     {details.map((detail) => (
-                                        <tr key={detail.id}>
+                                        <tr key={detail._id}>
                                             <td>{detail.barcode}</td>
                                             <td>
                                                 <Link to={'/products/' + detail.barcode}>

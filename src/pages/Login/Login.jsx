@@ -6,26 +6,28 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 function Login() {
-    const [userName, setUserName] = useState('');
+    const [userCode, setUserCode] = useState('');
     const [password, setPassword] = useState('');
 
     const navigate = useNavigate();
     const dataLogin = {
-        userName: userName,
+        userCode: userCode,
         password: password,
     };
-
     const handleSubmit = (e) => {
         e.preventDefault();
         const data = {
-            userName: dataLogin.userName,
-            body: dataLogin.password,
+            userCode: dataLogin.userCode,
+            password: dataLogin.password,
         };
         axios
-            .post('https://jsonplaceholder.typicode.com/posts', data)
-            .then((res) => console.log(res))
+            .post('http://localhost:3000/api/v1/account/login', data)
+            .then((res) => {
+                // console.log(token);
+                localStorage.setItem('token', res.data.token);
+                navigate(`/account`);
+            })
             .catch((err) => console.log(err));
-        navigate('/account');
     };
 
     return (
@@ -44,9 +46,9 @@ function Login() {
                         <input
                             type="text"
                             id="email"
-                            value={userName}
+                            value={userCode}
                             className="border-[1px] border-solid border-[#bfcbd9] text-black text-sm h-10 block w-full py-[6px] px-[12px] bg-white rounded"
-                            onChange={(e) => setUserName(e.target.value)}
+                            onChange={(e) => setUserCode(e.target.value)}
                             required
                         />
                     </div>

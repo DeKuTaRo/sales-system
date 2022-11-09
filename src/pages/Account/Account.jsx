@@ -10,12 +10,11 @@ import Sidebars from '../../components/Sidebars/Sidebars';
 
 function Account() {
     const [details, setDetails] = useState([]);
-    const [userCode, setUserCode] = useState('');
+
+    const token = localStorage.getItem('token');
 
     const fetchDetails = async () => {
-        const data = await fetch(
-            `http://localhost:3000/api/v1/account/get-all?token=${process.env.REACT_APP_ADMIN_TOKEN}`,
-        );
+        const data = await fetch(`http://localhost:3000/api/v1/account/get-all?token=${token}`);
         const detailData = await data.json();
 
         setDetails(detailData.result.data);
@@ -24,27 +23,14 @@ function Account() {
 
     useEffect(() => {
         fetchDetails();
+        // eslint-disable-next-line
     }, []);
 
-    const handleDisabled = (detail) => {
-        // e.preventDefault();
-        // setUserCode(details.userCode);
-        console.log(detail      );
-        // console.log(userCode);
-        // const data = {
-        //     userCode: registerAccount.userCode,
-        //     fullName: registerAccount.fullName,
-        //     email: registerAccount.email,
-        //     phoneNumber: registerAccount.phoneNumber,
-        //     password: registerAccount.password,
-        //     role: registerAccount.role,
-        // };
-        // axios
-        //     .post(`http://localhost:3000/api/v1/account/register?token=${process.env.REACT_APP_ADMIN_TOKEN}`, data)
-        //     .then((res) => console.log(res))
-        //     .catch((err) => console.log(err));
-        // navigate('/account');
-    };
+    // const handleDisabled = (e) => {
+    //     e.preventDefault();
+    //     console.log(this.detail.userCode);
+
+    // };
 
     // useEffect(() => {
     //     handleDisabled();
@@ -165,7 +151,17 @@ function Account() {
                                                 </Link>
                                             </td>
                                             <td>
-                                                <MdDelete onClick={handleDisabled(detail)} />
+                                                <MdDelete
+                                                    onClick={async () => {
+                                                        // console.log(detail.userCode);
+
+                                                        const url = await fetch(
+                                                            `http://localhost:3000/api/v1/account/disable?token=${token}&userCode=${detail.userCode}`,
+                                                        );
+                                                        const detailData = await url.json();
+                                                        console.log(detailData);
+                                                    }}
+                                                />
                                             </td>
                                         </tr>
                                     ))}

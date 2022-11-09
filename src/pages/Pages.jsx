@@ -6,6 +6,7 @@ import AccountDetails from './Account/AccountDetails';
 import AccountMe from './Account/AccountMe';
 import Expenes from './Expenes/Expenes';
 import Login from './Login/Login';
+import PageNotFound from './PageNotFound/PageNotFound';
 import Products from './Products/Products';
 import ProductsAdd from './Products/ProductsAdd';
 import ProductsDetails from './Products/ProductsDetails';
@@ -24,6 +25,7 @@ function Pages() {
             <Route path="/productsAdd" element={<ProductsAdd />} />
             <Route path="/products/:barcode" element={<ProductsDetails />} />
             <Route path="/expenes" element={<Expenes />} />
+            <Route path="*" element={<PageNotFound />} />
         </Routes>
     );
 }
