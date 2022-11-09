@@ -1,8 +1,9 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import Employee from './Employee/Employee';
-import EmployeeAdd from './Employee/EmployeeAdd';
-import EmployeeDetails from './Employee/EmployeeDetails';
+import Account from './Account/Account';
+import AccountAdd from './Account/AccountAdd';
+import AccountDetails from './Account/AccountDetails';
+import AccountMe from './Account/AccountMe';
 import Expenes from './Expenes/Expenes';
 import Login from './Login/Login';
 import Products from './Products/Products';
@@ -14,13 +15,14 @@ function Pages() {
 
     return (
         <Routes>
-            <Route path="/employee" element={<Employee />} />
-            <Route path="/employeeAdd" element={<EmployeeAdd />} />
-            <Route path="/employee/:id" element={<EmployeeDetails />} />
+            <Route path="/account" element={<Account />} />
+            <Route path="/accountAdd" element={<AccountAdd />} />
+            <Route path="/accountDetails/:id" element={<AccountDetails />} />
+            <Route path="/account/me" element={<AccountMe />} />
             <Route path="/login" element={<Login />} />
             <Route path="/products" element={<Products />} />
             <Route path="/productsAdd" element={<ProductsAdd />} />
-            <Route path="/products/:id" element={<ProductsDetails />} />
+            <Route path="/products/:barcode" element={<ProductsDetails />} />
             <Route path="/expenes" element={<Expenes />} />
         </Routes>
     );

@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Sidebars from '../../components/Sidebars/Sidebars';
 
-function EmployeeDetails() {
+function AccountDetails() {
     const [details, setDetails] = useState([]);
 
     let params = useParams();
@@ -115,4 +115,4 @@ function EmployeeDetails() {
     );
 }
 
-export default EmployeeDetails;
+export default AccountDetails;

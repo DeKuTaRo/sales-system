@@ -3,6 +3,7 @@ import { FiSearch } from 'react-icons/fi';
 import { BsPersonCircle } from 'react-icons/bs';
 import { FaShare, FaCheckSquare, FaRegBell } from 'react-icons/fa';
 import { ImClock } from 'react-icons/im';
+import { Link } from 'react-router-dom';
 
 function Headers() {
     return (
@@ -19,9 +20,9 @@ function Headers() {
                 </div>
                 <div className="flex items-center">
                     <p className="px-4">Customer area</p>
-                    <a href="/" className="px-4">
+                    <Link to={'/account/me/'} className="px-4">
                         <BsPersonCircle />
-                    </a>
+                    </Link>
                     <a href="/" className="px-4">
                         <FaShare />
                     </a>

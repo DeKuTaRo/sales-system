@@ -4,24 +4,51 @@ import { Link } from 'react-router-dom';
 
 import { FaFilter, FaSearch, FaPlus, FaUpload, FaUserAlt } from 'react-icons/fa';
 import { FiRefreshCw } from 'react-icons/fi';
-
+import { MdDelete } from 'react-icons/md';
 import Headers from '../../components/Headers/Headers';
 import Sidebars from '../../components/Sidebars/Sidebars';
 
-function Employee() {
+function Account() {
     const [details, setDetails] = useState([]);
+    const [userCode, setUserCode] = useState('');
 
     const fetchDetails = async () => {
-        const data = await fetch(`https://jsonplaceholder.typicode.com/users`);
+        const data = await fetch(
+            `http://localhost:3000/api/v1/account/get-all?token=${process.env.REACT_APP_ADMIN_TOKEN}`,
+        );
         const detailData = await data.json();
 
-        setDetails(detailData);
-        // console.log(detailData);
+        setDetails(detailData.result.data);
+        // console.log(detailData.result.data);
     };
 
     useEffect(() => {
         fetchDetails();
     }, []);
+
+    const handleDisabled = (detail) => {
+        // e.preventDefault();
+        // setUserCode(details.userCode);
+        console.log(detail      );
+        // console.log(userCode);
+        // const data = {
+        //     userCode: registerAccount.userCode,
+        //     fullName: registerAccount.fullName,
+        //     email: registerAccount.email,
+        //     phoneNumber: registerAccount.phoneNumber,
+        //     password: registerAccount.password,
+        //     role: registerAccount.role,
+        // };
+        // axios
+        //     .post(`http://localhost:3000/api/v1/account/register?token=${process.env.REACT_APP_ADMIN_TOKEN}`, data)
+        //     .then((res) => console.log(res))
+        //     .catch((err) => console.log(err));
+        // navigate('/account');
+    };
+
+    // useEffect(() => {
+    //     handleDisabled();
+    // }, []);
 
     return (
         <div className="w-full">
@@ -32,17 +59,17 @@ function Employee() {
                     <div className="p-5 mb-2.5 flex items-center justify-between">
                         <div>
                             <button className="text-white bg-blue-600 text-sm border-[1px] border-solid border-transparent py-1.5 px-3 rounded-md inline-block font-normal uppercase hover:text-white hover:bg-blue-700">
-                                <Link to={'/employeeAdd/'}>
+                                <Link to={'/accountAdd/'}>
                                     <p className="flex items-center">
                                         <FaPlus className="pr-1" />
-                                        New customer
+                                        New account
                                     </p>
                                 </Link>
                             </button>
                             <button className="text-white bg-blue-600 text-sm border-[1px] border-solid border-transparent py-1.5 px-3 rounded-md inline-block font-normal ml-4 uppercase hover:text-white hover:bg-blue-700">
                                 <p className="flex items-center">
                                     <FaUpload className="pr-1" />
-                                    import customer
+                                    import account
                                 </p>
                             </button>
                             <button className="text-black bg-white text-sm border-[1px] border-solid border-transparent py-1.5 px-3 rounded-md inline-block font-normal ml-4 uppercase hover:text-black hover:bg-slate-50">
@@ -58,37 +85,7 @@ function Employee() {
                             </button>
                         </div>
                     </div>
-                    <div className="bg-white border-[1px] border-solid border-[#dce1ef] rounded p-5 mb-2.5">
-                        <h3 className="font-normal text-xl">Customers Summary</h3>
-                        <div className="grid grid-cols-6 gap-6 text-[#464646]">
-                            <div className="border-r-[1px] border-solid border-[#f0f0f0]">
-                                <h3 className="mb-2.5 mt-5 text-2xl font-medium">11</h3>
-                                <span>Total Customers</span>
-                            </div>
-                            <div className="border-r-[1px] border-solid border-[#f0f0f0]">
-                                <h3 className="mb-2.5 mt-5 text-2xl font-medium">11</h3>
-                                <span className="text-[#84c529]">Active Customers</span>
-                            </div>
-                            <div className="border-r-[1px] border-solid border-[#f0f0f0]">
-                                <h3 className="mb-2.5 mt-5 text-2xl font-medium">11</h3>
-                                <span className="text-[#fc2d42]">Inactive Customers</span>
-                            </div>
-                            <div className="border-r-[1px] border-solid border-[#f0f0f0]">
-                                <h3 className="mb-2.5 mt-5 text-2xl font-medium">11</h3>
-                                <span className="text-[#03a9f4]">Active Contacts</span>
-                            </div>
-                            <div className="border-r-[1px] border-solid border-[#f0f0f0]">
-                                <h3 className="mb-2.5 mt-5 text-2xl font-medium">11</h3>
-                                <span className="text-[#fc2d42]">Inactive Contacts</span>
-                            </div>
-                            <div>
-                                <h3 className="mb-2.5 mt-5 text-2xl font-medium">11</h3>
-                                <span className="text-[#777] border-b-[1px] border-dashed border-[#bbb] pb-0.5">
-                                    Contacts Logged In Today
-                                </span>
-                            </div>
-                        </div>
-                    </div>
+
                     <div className="bg-white border-[1px] border-solid border-[#dce1ef] rounded p-5 mb-2.5">
                         <div className="flex items-center mt-2.5 mb-5">
                             <input id="exclude_inactive" type="checkbox" />
@@ -130,47 +127,21 @@ function Employee() {
                                 />
                             </div>
                         </div>
-                        <div>
+                        <div className="max-h-[67rem] overflow-hidden">
                             <table className="w-full mt-8 text-[#008ece]">
                                 <thead>
                                     <tr className="text-left bg-[#f6f8fa]">
-                                        <th>#</th>
-                                        <th className="bg-[#ebf5ff]">Full Name</th>
-                                        <th>Primary email</th>
+                                        <th className="bg-[#ebf5ff]">Email</th>
+                                        <th>Full Name</th>
                                         <th>Phone</th>
                                         <th>Role</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {details.map((detail) => (
-                                        <tr key={detail.id}>
-                                            <td>{detail.id}</td>
-                                            <td>
-                                                <Link to={'/employee/' + detail.id}>
-                                                    <p className="hover:text-[#004b6d] pb-3 pt-2">{detail.name}</p>
-                                                </Link>
-
-                                                <div className="flex items-center">
-                                                    <a
-                                                        href="/"
-                                                        className="text-sm border-r-[1px] border-solid border-[#f0f0f0] pr-2 py-[1px] hover:text-[#004b6d]"
-                                                    >
-                                                        View
-                                                    </a>
-                                                    <a
-                                                        href="/"
-                                                        className="mx-2 text-sm border-r-[1px] border-solid border-[#f0f0f0] px-2 py-[1px] hover:text-[#004b6d]"
-                                                    >
-                                                        Edit
-                                                    </a>
-                                                    <a
-                                                        href="/"
-                                                        className="text-sm px-2 py-[1px] text-[#fc2d42] hover:text-[#843534]"
-                                                    >
-                                                        Delete
-                                                    </a>
-                                                </div>
-                                            </td>
+                                        // console.log(detail),
+                                        <tr key={detail._id}>
                                             <td>
                                                 <Link to={'/employee/' + detail.id}>
                                                     <p className="hover:text-[#004b6d] pb-3 pt-2">{detail.email}</p>
@@ -178,13 +149,23 @@ function Employee() {
                                             </td>
                                             <td>
                                                 <Link to={'/employee/' + detail.id}>
-                                                    <p className="hover:text-[#004b6d] pb-3 pt-2">{detail.phone}</p>
+                                                    <p className="hover:text-[#004b6d] pb-3 pt-2">{detail.fullName}</p>
                                                 </Link>
                                             </td>
                                             <td>
                                                 <Link to={'/employee/' + detail.id}>
-                                                    <p className="hover:text-[#004b6d] pb-3 pt-2">{detail.website}</p>
+                                                    <p className="hover:text-[#004b6d] pb-3 pt-2">
+                                                        {detail.phoneNumber}
+                                                    </p>
                                                 </Link>
+                                            </td>
+                                            <td>
+                                                <Link to={'/employee/' + detail.id}>
+                                                    <p className="hover:text-[#004b6d] pb-3 pt-2">{detail.role}</p>
+                                                </Link>
+                                            </td>
+                                            <td>
+                                                <MdDelete onClick={handleDisabled(detail)} />
                                             </td>
                                         </tr>
                                     ))}
@@ -198,4 +179,4 @@ function Employee() {
     );
 }
 
-export default Employee;
+export default Account;

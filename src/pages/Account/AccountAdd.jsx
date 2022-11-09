@@ -2,73 +2,105 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Sidebars from '../../components/Sidebars/Sidebars';
+import { useNavigate } from 'react-router-dom';
+import Select from 'react-select';
 
-function EmployeeAdd() {
-    const [name, setName] = useState('');
+function AccountAdd() {
+    const [userCode, setUserCode] = useState('');
+    const [fullName, setFullName] = useState('');
     const [email, setEmail] = useState('');
-    const [phone, setPhone] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [password, setPassword] = useState('');
     const [role, setRole] = useState('');
 
-    const infoEmployee = {
-        name: name,
+    const navigate = useNavigate();
+
+    const registerAccount = {
+        userCode: userCode,
+        fullName: fullName,
         email: email,
-        phone: phone,
+        phoneNumber: phoneNumber,
+        password: password,
         role: role,
     };
 
-    console.log(process.env.ADMIN_TOKEN);
+    const roleSelect = [
+        {
+            value: 'manager',
+            label: 'manager',
+        },
+        {
+            value: 'staff',
+            label: 'staff',
+        },
+    ];
 
     const handleSubmit = (e) => {
-        // const { name, email, phone, role } = infoEmployee;
-        console.log(infoEmployee);
         e.preventDefault();
-    };
-    useEffect(() => {
+        const data = {
+            userCode: registerAccount.userCode,
+            fullName: registerAccount.fullName,
+            email: registerAccount.email,
+            phoneNumber: registerAccount.phoneNumber,
+            password: registerAccount.password,
+            role: registerAccount.role,
+        };
         axios
-            .post(`http://localhost:3000/api/v1/account/register?token=${process.env.ADMIN_TOKEN}`, infoEmployee)
-            .then(() => console.log('User Created'))
-            .catch((err) => {
-                console.error(err);
-            });
-    });
-
+            .post(`http://localhost:3000/api/v1/account/register?token=${process.env.REACT_APP_ADMIN_TOKEN}`, data)
+            .then((res) => console.log(res))
+            .catch((err) => console.log(err));
+        // navigate('/account');
+    };
     return (
         <div className="w-full">
             <div className="flex">
                 <Sidebars />
                 <div className="w-full p-4">
                     <div className="bg-[#f9fafc] p-4 text-[#656565] font-normal text-lg rounded-t">
-                        <h2>Profile</h2>
+                        <h2>Register</h2>
                     </div>
                     <div className="bg-white text-black">
-                        <div className="flex">
-                            <p className="p-3">Customer Details</p>
-                            <p className="p-3">Billing & shopping</p>
-                            <p className="p-3">Customer Admins</p>
-                        </div>
                         <div className="mt-4">
                             <form onSubmit={handleSubmit}>
                                 <div className="grid grid-cols-2 gap-2">
                                     <div className="p-3">
                                         <div className="mb-4">
                                             <label
+                                                htmlFor="userCode"
+                                                className="font-normal text-sm text-[#2d2d2d] inline-block mb-2"
+                                            >
+                                                UserCode
+                                            </label>
+                                            <br />
+                                            <input
+                                                type="text"
+                                                id="userCode"
+                                                placeholder="UserCode"
+                                                className="border-[1px] border-solid border-[#bfcbd9] text-[#494949] text-sm h-14 block w-full py-[6px] px-[12px] bg-white rounded"
+                                                onChange={(e) => {
+                                                    setUserCode(e.target.value);
+                                                }}
+                                            />
+                                        </div>
+                                        <div className="mb-4">
+                                            <label
                                                 htmlFor="fullName"
                                                 className="font-normal text-sm text-[#2d2d2d] inline-block mb-2"
                                             >
-                                                Full Name
+                                                FullName
                                             </label>
                                             <br />
                                             <input
                                                 type="text"
                                                 id="fullName"
-                                                placeholder="Name"
+                                                placeholder="FullName"
                                                 className="border-[1px] border-solid border-[#bfcbd9] text-[#494949] text-sm h-14 block w-full py-[6px] px-[12px] bg-white rounded"
                                                 onChange={(e) => {
-                                                    setName(e.target.value);
+                                                    setFullName(e.target.value);
                                                 }}
                                             />
                                         </div>
-                                        <div>
+                                        <div className="mb-4">
                                             <label
                                                 htmlFor="email"
                                                 className="font-normal text-sm text-[#2d2d2d] inline-block mb-2"
@@ -103,11 +135,29 @@ function EmployeeAdd() {
                                                 placeholder="Phone"
                                                 className="border-[1px] border-solid border-[#bfcbd9] text-[#494949] text-sm h-14 block w-full py-[6px] px-[12px] bg-white rounded"
                                                 onChange={(e) => {
-                                                    setPhone(e.target.value);
+                                                    setPhoneNumber(e.target.value);
                                                 }}
                                             />
                                         </div>
-                                        <div>
+                                        <div className="mb-4">
+                                            <label
+                                                htmlFor="password"
+                                                className="font-normal text-sm text-[#2d2d2d] inline-block mb-2"
+                                            >
+                                                Password
+                                            </label>
+                                            <br />
+                                            <input
+                                                type="text"
+                                                id="password"
+                                                placeholder="Password"
+                                                className="border-[1px] border-solid border-[#bfcbd9] text-[#494949] text-sm h-14 block w-full py-[6px] px-[12px] bg-white rounded"
+                                                onChange={(e) => {
+                                                    setPassword(e.target.value);
+                                                }}
+                                            />
+                                        </div>
+                                        <div className="mb-4">
                                             <label
                                                 htmlFor="role"
                                                 className="font-normal text-sm text-[#2d2d2d] inline-block mb-2"
@@ -115,13 +165,14 @@ function EmployeeAdd() {
                                                 Role
                                             </label>
                                             <br />
-                                            <input
-                                                type="text"
-                                                id="role"
-                                                placeholder="Role"
+                                            <Select
+                                                placeholder="Select Role"
                                                 className="border-[1px] border-solid border-[#bfcbd9] text-[#494949] text-sm h-14 block w-full py-[6px] px-[12px] bg-white rounded"
+                                                value={roleSelect.find((obj) => obj.value === role)} // set selected value
+                                                options={roleSelect} // set list of the data
                                                 onChange={(e) => {
-                                                    setRole(e.target.value);
+                                                    // console.log(e.value);
+                                                    setRole(e.value);
                                                 }}
                                             />
                                         </div>
@@ -141,4 +192,4 @@ function EmployeeAdd() {
     );
 }
 
-export default EmployeeAdd;
+export default AccountAdd;

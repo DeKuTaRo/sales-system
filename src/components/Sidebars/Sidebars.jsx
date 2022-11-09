@@ -21,14 +21,14 @@ function Sidebars() {
                 </li>
                 <li className="flex items-center ml-4 text-white text-lg font-medium pt-4">
                     <FaUserAlt />
-                    <Link to={'/employee'}>
-                        <p className="ml-4"> Nhân viên</p>
+                    <Link to={'/account'}>
+                        <p className="ml-4"> Account User</p>
                     </Link>
                 </li>
                 <li className="flex items-center ml-4 text-white text-lg font-medium pt-4">
                     <FaTasks />
                     <Link to={'/products/'}>
-                        <p className="ml-4"> Sản phẩm</p>
+                        <p className="ml-4"> Products</p>
                     </Link>
                 </li>
                 <li className="flex items-center ml-4 text-white text-lg font-medium pt-4">

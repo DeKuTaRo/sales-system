@@ -9,13 +9,16 @@ import Headers from '../../components/Headers/Headers';
 
 function Products() {
     const [details, setDetails] = useState([]);
-
+    // https://jsonplaceholder.typicode.com/users
+    // http://localhost:3000/api/v1/product/get-all?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NjgwNjQxMDMsImRhdGEiOnsidXNlckNvZGUiOiJBRE1JTiIsImZ1bGxOYW1lIjoiQURNSU5JU1RSQVRPUiIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJwaG9uZU51bWJlciI6IiNOL0EiLCJyb2xlIjoiQURNSU4iLCJsYXN0TG9naW4iOiIyMDIyLTExLTA5VDA3OjA4OjIzLjQwMVoifSwiaWF0IjoxNjY3OTc3NzAzfQ.h4urhEDcwzcnSL38zipa8qzgzPSN3hlqz8SqbauLqCY
     const fetchDetails = async () => {
-        const data = await fetch(`https://jsonplaceholder.typicode.com/users`);
+        const data = await fetch(
+            `http://localhost:3000/api/v1/product/get-all?token=${process.env.REACT_APP_ADMIN_TOKEN}`,
+        );
         const detailData = await data.json();
 
-        setDetails(detailData);
-        // console.log(detailData);
+        setDetails(detailData.result.data);
+        console.log(detailData.result.data);
     };
 
     useEffect(() => {
@@ -93,66 +96,45 @@ function Products() {
                                 />
                             </div>
                         </div>
-                        <div>
+                        <div className="max-h-[67rem] overflow-hidden">
                             <table className="w-full mt-8 text-[#008ece]">
                                 <thead>
                                     <tr className="text-left bg-[#f6f8fa]">
-                                        <th>#</th>
+                                        <th>Barcode</th>
                                         <th className="bg-[#ebf5ff]">Name</th>
-                                        <th>Primary contact</th>
-                                        <th>Primary email</th>
-                                        <th>Phone</th>
-                                        <th>Website</th>
+                                        <th>Unit of Measure</th>
+                                        <th>Cost</th>
+                                        <th>Department</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {details.map((detail) => (
                                         <tr key={detail.id}>
-                                            <td>{detail.id}</td>
+                                            <td>{detail.barcode}</td>
                                             <td>
-                                                <Link to={'/products/' + detail.id}>
-                                                    <p className="hover:text-[#004b6d] pb-3 pt-2">{detail.name}</p>
-                                                </Link>
-
-                                                <div className="flex items-center">
-                                                    <a
-                                                        href="/"
-                                                        className="text-sm border-r-[1px] border-solid border-[#f0f0f0] pr-2 py-[1px] hover:text-[#004b6d]"
-                                                    >
-                                                        View
-                                                    </a>
-                                                    <a
-                                                        href="/"
-                                                        className="mx-2 text-sm border-r-[1px] border-solid border-[#f0f0f0] px-2 py-[1px] hover:text-[#004b6d]"
-                                                    >
-                                                        Edit
-                                                    </a>
-                                                    <a
-                                                        href="/"
-                                                        className="text-sm px-2 py-[1px] text-[#fc2d42] hover:text-[#843534]"
-                                                    >
-                                                        Delete
-                                                    </a>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <Link to={'/products/' + detail.id}>
-                                                    <p className="hover:text-[#004b6d] pb-3 pt-2">{detail.username}</p>
+                                                <Link to={'/products/' + detail.barcode}>
+                                                    <p className="hover:text-[#004b6d] pb-3 pt-2">
+                                                        {detail.productName}
+                                                    </p>
                                                 </Link>
                                             </td>
                                             <td>
-                                                <Link to={'/products/' + detail.id}>
-                                                    <p className="hover:text-[#004b6d] pb-3 pt-2">{detail.email}</p>
+                                                <Link to={'/products/' + detail.barcode}>
+                                                    <p className="hover:text-[#004b6d] pb-3 pt-2">
+                                                        {detail.unitOfMeasure}
+                                                    </p>
                                                 </Link>
                                             </td>
                                             <td>
-                                                <Link to={'/products/' + detail.id}>
-                                                    <p className="hover:text-[#004b6d] pb-3 pt-2">{detail.phone}</p>
+                                                <Link to={'/products/' + detail.barcode}>
+                                                    <p className="hover:text-[#004b6d] pb-3 pt-2">{detail.unitCost}</p>
                                                 </Link>
                                             </td>
                                             <td>
-                                                <Link to={'/products/' + detail.id}>
-                                                    <p className="hover:text-[#004b6d] pb-3 pt-2">{detail.website}</p>
+                                                <Link to={'/products/' + detail.barcode}>
+                                                    <p className="hover:text-[#004b6d] pb-3 pt-2">
+                                                        {detail.department}
+                                                    </p>
                                                 </Link>
                                             </td>
                                         </tr>

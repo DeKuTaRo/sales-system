@@ -1,27 +1,22 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import Sidebars from '../../components/Sidebars/Sidebars';
 
-function ProductsDetails() {
+function AccountMe() {
     const [details, setDetails] = useState([]);
 
-    let params = useParams();
-
     const fetchDetails = async () => {
-        const data = await fetch(
-            `http://localhost:3000/api/v1/product/get-detail?token=${process.env.REACT_APP_ADMIN_TOKEN}&barcode=${params.barcode}`,
-        );
+        const data = await fetch(`http://localhost:3000/api/v1/account/me?token=${process.env.REACT_APP_ADMIN_TOKEN}`);
         const detailData = await data.json();
 
-        setDetails(detailData.result.data);
-        console.log(detailData.result.data);
+        setDetails(detailData.data);
+        // console.log(detailData.data);
     };
 
     useEffect(() => {
         fetchDetails();
         // eslint-disable-next-line
-    }, [params.id]);
+    }, []);
     return (
         <div className="w-full">
             <div className="flex">
@@ -41,30 +36,15 @@ function ProductsDetails() {
                                 <div className="p-3">
                                     <div className="mb-4">
                                         <label
-                                            htmlFor="fullName"
-                                            className="font-normal text-sm text-[#2d2d2d] inline-block mb-2"
-                                        >
-                                            Barcode
-                                        </label>
-                                        <br />
-                                        <input
-                                            type="text"
-                                            id="fullName"
-                                            value={details.barcode}
-                                            className="border-[1px] border-solid border-[#bfcbd9] text-[#494949] text-sm h-14 block w-full py-[6px] px-[12px] bg-white rounded"
-                                        />
-                                    </div>
-                                    <div>
-                                        <label
-                                            htmlFor="email"
+                                            htmlFor="createdAt"
                                             className="font-normal text-sm text-[#2d2d2d] inline-block mb-2"
                                         >
                                             Created At
                                         </label>
                                         <br />
                                         <input
-                                            type="email"
-                                            id="email"
+                                            type="text"
+                                            id="createdAt"
                                             value={details.createdAt}
                                             className="border-[1px] border-solid border-[#bfcbd9] text-[#494949] text-sm h-14 block w-full py-[6px] px-[12px] bg-white rounded"
                                         />
@@ -74,43 +54,58 @@ function ProductsDetails() {
                                             htmlFor="email"
                                             className="font-normal text-sm text-[#2d2d2d] inline-block mb-2"
                                         >
-                                            Department
+                                            Email
                                         </label>
                                         <br />
                                         <input
                                             type="email"
                                             id="email"
-                                            value={details.department}
+                                            value={details.email}
                                             className="border-[1px] border-solid border-[#bfcbd9] text-[#494949] text-sm h-14 block w-full py-[6px] px-[12px] bg-white rounded"
                                         />
                                     </div>
                                     <div>
                                         <label
-                                            htmlFor="email"
+                                            htmlFor="fullName"
                                             className="font-normal text-sm text-[#2d2d2d] inline-block mb-2"
                                         >
-                                            Product Name
+                                            FullName
                                         </label>
                                         <br />
                                         <input
                                             type="email"
-                                            id="email"
-                                            value={details.productName}
+                                            id="fullName"
+                                            value={details.fullName}
                                             className="border-[1px] border-solid border-[#bfcbd9] text-[#494949] text-sm h-14 block w-full py-[6px] px-[12px] bg-white rounded"
                                         />
                                     </div>
                                     <div>
                                         <label
-                                            htmlFor="email"
+                                            htmlFor="lastLogin"
                                             className="font-normal text-sm text-[#2d2d2d] inline-block mb-2"
                                         >
-                                            Updated At
+                                            Last Login
                                         </label>
                                         <br />
                                         <input
                                             type="email"
-                                            id="email"
-                                            value={details.updatedAt}
+                                            id="lastLogin"
+                                            value={details.lastLogin}
+                                            className="border-[1px] border-solid border-[#bfcbd9] text-[#494949] text-sm h-14 block w-full py-[6px] px-[12px] bg-white rounded"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label
+                                            htmlFor="phoneNumber"
+                                            className="font-normal text-sm text-[#2d2d2d] inline-block mb-2"
+                                        >
+                                            Phone Number
+                                        </label>
+                                        <br />
+                                        <input
+                                            type="email"
+                                            id="phoneNumber"
+                                            value={details.phoneNumber}
                                             className="border-[1px] border-solid border-[#bfcbd9] text-[#494949] text-sm h-14 block w-full py-[6px] px-[12px] bg-white rounded"
                                         />
                                     </div>
@@ -119,16 +114,16 @@ function ProductsDetails() {
                                 <div className="p-3">
                                     <div className="mb-4">
                                         <label
-                                            htmlFor="phone"
+                                            htmlFor="preSalary"
                                             className="font-normal text-sm text-[#2d2d2d] inline-block mb-2"
                                         >
-                                            Quantity
+                                            Pre Salary
                                         </label>
                                         <br />
                                         <input
                                             type="text"
-                                            id="phone"
-                                            value={details.quantity}
+                                            id="preSalary"
+                                            value={details.preSalary}
                                             className="border-[1px] border-solid border-[#bfcbd9] text-[#494949] text-sm h-14 block w-full py-[6px] px-[12px] bg-white rounded"
                                         />
                                     </div>
@@ -137,58 +132,43 @@ function ProductsDetails() {
                                             htmlFor="role"
                                             className="font-normal text-sm text-[#2d2d2d] inline-block mb-2"
                                         >
-                                            Supplier Code
+                                            Role
                                         </label>
                                         <br />
                                         <input
                                             type="text"
                                             id="role"
-                                            value={details.supplierCode}
+                                            value={details.role}
                                             className="border-[1px] border-solid border-[#bfcbd9] text-[#494949] text-sm h-14 block w-full py-[6px] px-[12px] bg-white rounded"
                                         />
                                     </div>
                                     <div>
                                         <label
-                                            htmlFor="role"
+                                            htmlFor="updatedAt"
                                             className="font-normal text-sm text-[#2d2d2d] inline-block mb-2"
                                         >
-                                            Supplier Name
+                                            Updated At
                                         </label>
                                         <br />
                                         <input
                                             type="text"
-                                            id="role"
-                                            value={details.supplierName}
+                                            id="updatedAt"
+                                            value={details.updatedAt}
                                             className="border-[1px] border-solid border-[#bfcbd9] text-[#494949] text-sm h-14 block w-full py-[6px] px-[12px] bg-white rounded"
                                         />
                                     </div>
                                     <div>
                                         <label
-                                            htmlFor="role"
+                                            htmlFor="userCode"
                                             className="font-normal text-sm text-[#2d2d2d] inline-block mb-2"
                                         >
-                                            Unit Cost
+                                            User Code
                                         </label>
                                         <br />
                                         <input
                                             type="text"
-                                            id="role"
-                                            value={details.unitCost}
-                                            className="border-[1px] border-solid border-[#bfcbd9] text-[#494949] text-sm h-14 block w-full py-[6px] px-[12px] bg-white rounded"
-                                        />
-                                    </div>
-                                    <div>
-                                        <label
-                                            htmlFor="role"
-                                            className="font-normal text-sm text-[#2d2d2d] inline-block mb-2"
-                                        >
-                                            Unit of Measure
-                                        </label>
-                                        <br />
-                                        <input
-                                            type="text"
-                                            id="role"
-                                            value={details.unitOfMeasure}
+                                            id="userCode"
+                                            value={details.userCode}
                                             className="border-[1px] border-solid border-[#bfcbd9] text-[#494949] text-sm h-14 block w-full py-[6px] px-[12px] bg-white rounded"
                                         />
                                     </div>
@@ -207,4 +187,4 @@ function ProductsDetails() {
     );
 }
 
-export default ProductsDetails;
+export default AccountMe;

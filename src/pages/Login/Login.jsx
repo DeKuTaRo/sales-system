@@ -1,7 +1,33 @@
 import React from 'react';
 import LogoDark from '../../assests/images/logo_dark.png';
+import { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function Login() {
+    const [userName, setUserName] = useState('');
+    const [password, setPassword] = useState('');
+
+    const navigate = useNavigate();
+    const dataLogin = {
+        userName: userName,
+        password: password,
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const data = {
+            userName: dataLogin.userName,
+            body: dataLogin.password,
+        };
+        axios
+            .post('https://jsonplaceholder.typicode.com/posts', data)
+            .then((res) => console.log(res))
+            .catch((err) => console.log(err));
+        navigate('/account');
+    };
+
     return (
         <div className="m-auto max-w-md pt-24">
             <div className="text-center py-6 px-2.5">
@@ -9,7 +35,7 @@ function Login() {
             </div>
             <h1 className="text-neutral-800 font-semibold text-2xl my-5 text-center">Login</h1>
             <div className="rounded-sm bg-white mx-6 py-6 px-8">
-                <form>
+                <form onSubmit={handleSubmit}>
                     <div className="mb-4">
                         <label htmlFor="email" className="font-normal text-sm text-[#2d2d2d] inline-block mb-2">
                             Email Address
@@ -18,8 +44,10 @@ function Login() {
                         <input
                             type="text"
                             id="email"
-                            value=""
+                            value={userName}
                             className="border-[1px] border-solid border-[#bfcbd9] text-black text-sm h-10 block w-full py-[6px] px-[12px] bg-white rounded"
+                            onChange={(e) => setUserName(e.target.value)}
+                            required
                         />
                     </div>
                     <div className="mb-4">
@@ -30,8 +58,10 @@ function Login() {
                         <input
                             type="text"
                             id="password"
-                            value=""
+                            value={password}
                             className="border-[1px] border-solid border-[#bfcbd9] text-[#494949] text-sm h-10 block w-full py-[6px] px-[12px] bg-white rounded"
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
                         />
                     </div>
                     <div className="mb-4">
@@ -52,6 +82,11 @@ function Login() {
                         <a href="/" className="text-[#337ab7]">
                             Forgot password?
                         </a>
+                    </div>
+                    <div className="mb-4">
+                        <Link to={'/register'} className="text-[#337ab7]">
+                            New Member? Sign up now
+                        </Link>
                     </div>
                 </form>
             </div>
