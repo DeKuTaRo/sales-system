@@ -4,7 +4,11 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+<<<<<<< HEAD
 import { ToastContainer, toast } from 'react-toastify';
+=======
+import { toast } from 'react-toastify';
+>>>>>>> 59439bf70aa3f8494c9da8f3d58d84eba6348d23
 import 'react-toastify/dist/ReactToastify.css';
 
 function Login() {
@@ -26,6 +30,7 @@ function Login() {
         axios
             .post(`http://localhost:3000/api/v1/account/login`, data)
             .then((res) => {
+<<<<<<< HEAD
                 console.log(res);
                 localStorage.setItem('token', res.data.token);
 
@@ -67,6 +72,36 @@ function Login() {
                     progress: undefined,
                     theme: 'dark',
                 });
+=======
+                if (!res.data.status) {
+                    toast.error(res.data.msg.vn, {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    });
+                } else {
+                    localStorage.setItem('token', res.data.token);
+                    toast.success(res.data.msg.vn, {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    });
+                    navigate(`/account`);
+                }
+            })
+            .catch((err) => {
+                console.log(err)
+>>>>>>> 59439bf70aa3f8494c9da8f3d58d84eba6348d23
             });
     };
 

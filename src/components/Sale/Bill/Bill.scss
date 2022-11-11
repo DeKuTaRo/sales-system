@@ -61,7 +61,10 @@
             }
         }
 
-        .subtotal {
+        .subtotal,
+        .discount,
+        .Change_Due,
+        .total {
             font-size: 16px;
             font-weight: bold;
             text-align: right;
@@ -72,7 +75,10 @@
                 border-style: dashed;
             }
 
-            .subtotal__price {
+            .subtotal__price,
+            .discount__price,
+            .changeDue_price,
+            .total__price {
                 margin: 5px 20px;
             }
         }

@@ -52,7 +52,22 @@ function Bill({ products, empty, remove }) {
 
                 <div className="subtotal">
                     <hr />
-                    <div className="subtotal__price">Subtotal: ${total}</div>
+                    <div className="subtotal__price">Subtotal: </div>
+                    <hr />
+                </div>
+                <div className="discount">
+                    <hr />
+                    <div className="discount__price">Discount: </div>
+                    <hr />
+                </div>
+                <div className="Change_Due">
+                    <hr />
+                    <div className="changeDue_price">change Due: </div>
+                    <hr />
+                </div>
+                <div className="total">
+                    <hr />
+                    <div className="total__price">Total: </div>
                     <hr />
                 </div>
             </div>
