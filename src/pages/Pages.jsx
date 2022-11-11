@@ -10,6 +10,7 @@ import PageNotFound from './PageNotFound/PageNotFound';
 import Products from './Products/Products';
 import ProductsAdd from './Products/ProductsAdd';
 import ProductsDetails from './Products/ProductsDetails';
+import Sale from './Sale/Sale';
 
 function Pages() {
     // const location = useLocation();
@@ -25,6 +26,8 @@ function Pages() {
             <Route path="/productsAdd" element={<ProductsAdd />} />
             <Route path="/products/:barcode" element={<ProductsDetails />} />
             <Route path="/expenes" element={<Expenes />} />
+            {/* Sale route */}
+            <Route path="/sale" element={<Sale />} />
             <Route path="*" element={<PageNotFound />} />
         </Routes>
     );

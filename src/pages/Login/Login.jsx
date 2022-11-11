@@ -14,6 +14,8 @@ function Login() {
         userCode: userCode,
         password: password,
     };
+    console.log(process.env.REACT_APP_BASE_URL);
+
     const handleSubmit = (e) => {
         e.preventDefault();
         const data = {
@@ -21,7 +23,7 @@ function Login() {
             password: dataLogin.password,
         };
         axios
-            .post('http://localhost:3000/api/v1/account/login', data)
+            .post(`http://localhost:3000/api/v1/account/login`, data)
             .then((res) => {
                 // console.log(token);
                 localStorage.setItem('token', res.data.token);
