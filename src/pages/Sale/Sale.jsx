@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Menu from '../../components/Sale/Menu/Menu';
 import Navbar from '../../components/Sale/Navbar/Navbar';
 import Bill from '../../components/Sale/Bill/Bill';
+import SearchBox from '../../components/SearchBox/SearchBox.component';
 import './Sale.scss';
 
 function Sale() {
@@ -32,6 +33,8 @@ function Sale() {
             <div className="pos">
                 <Bill products={BillItems} empty={emptyBill} remove={removeProduct} />
                 <Menu addItems={addItems} />
+                {/* <SearchBox /> */}
+
             </div>
         </div>
     );

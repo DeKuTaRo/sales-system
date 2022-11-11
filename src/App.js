@@ -1,6 +1,7 @@
 import { BrowserRouter } from 'react-router-dom';
 import Pages from './pages/Pages';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function App() {
     // const navigate = useNavigate();
 
@@ -19,6 +20,18 @@ function App() {
             <BrowserRouter>
                 <Pages />
             </BrowserRouter>
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
+
             {/* ) : (
                 <BrowserRouter>
                     <Login />

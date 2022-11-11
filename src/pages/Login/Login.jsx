@@ -4,6 +4,8 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Login() {
     const [userCode, setUserCode] = useState('');
@@ -14,7 +16,6 @@ function Login() {
         userCode: userCode,
         password: password,
     };
-    console.log(process.env.REACT_APP_BASE_URL);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -25,11 +26,35 @@ function Login() {
         axios
             .post(`http://localhost:3000/api/v1/account/login`, data)
             .then((res) => {
-                // console.log(token);
-                localStorage.setItem('token', res.data.token);
-                navigate(`/account`);
+                if (!res.data.status) {
+                    toast.error(res.data.msg.vn, {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    });
+                } else {
+                    localStorage.setItem('token', res.data.token);
+                    toast.success(res.data.msg.vn, {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    });
+                    navigate(`/account`);
+                }
             })
-            .catch((err) => console.log(err));
+            .catch((err) => {
+                console.log(err)
+            });
     };
 
     return (
