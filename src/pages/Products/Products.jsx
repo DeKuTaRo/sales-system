@@ -17,12 +17,10 @@ function Products() {
         const detailData = await data.json();
 
         setDetails(detailData.result.data);
-        // console.log(detailData.result.data);
     };
 
     useEffect(() => {
         fetchDetails();
-        // eslint-disable-next-line
     }, []);
 
     return (
