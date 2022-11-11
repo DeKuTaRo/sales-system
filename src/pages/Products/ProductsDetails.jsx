@@ -8,9 +8,10 @@ function ProductsDetails() {
 
     let params = useParams();
 
+    const token = localStorage.getItem('token');
     const fetchDetails = async () => {
         const data = await fetch(
-            `http://localhost:3000/api/v1/product/get-detail?token=${process.env.REACT_APP_ADMIN_TOKEN}&barcode=${params.barcode}`,
+            `http://localhost:3000/api/v1/product/get-detail?token=${token}&barcode=${params.barcode}`,
         );
         const detailData = await data.json();
 

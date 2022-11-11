@@ -5,8 +5,10 @@ import Sidebars from '../../components/Sidebars/Sidebars';
 function AccountMe() {
     const [details, setDetails] = useState([]);
 
+    const token = localStorage.getItem('token');
+
     const fetchDetails = async () => {
-        const data = await fetch(`http://localhost:3000/api/v1/account/me?token=${process.env.REACT_APP_ADMIN_TOKEN}`);
+        const data = await fetch(`http://localhost:3000/api/v1/account/me?token=${token}`);
         const detailData = await data.json();
 
         setDetails(detailData.data);
@@ -23,14 +25,9 @@ function AccountMe() {
                 <Sidebars />
                 <div className="w-full p-4">
                     <div className="bg-[#f9fafc] p-4 text-[#656565] font-normal text-lg rounded-t">
-                        <h2>Details</h2>
+                        <h2>Details Account</h2>
                     </div>
                     <div className="bg-white text-black">
-                        <div className="flex">
-                            <p className="p-3">Customer Details</p>
-                            <p className="p-3">Billing & shopping</p>
-                            <p className="p-3">Customer Admins</p>
-                        </div>
                         <div className="mt-4">
                             <div className="grid grid-cols-2 gap-2">
                                 <div className="p-3">

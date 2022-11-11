@@ -6,13 +6,13 @@ import { FaFilter, FaSearch, FaPlus, FaUpload, FaStore } from 'react-icons/fa';
 import Sidebars from '../../components/Sidebars/Sidebars';
 import Headers from '../../components/Headers/Headers';
 
-function Products() {
+function ProductsOufOfStock() {
     const [details, setDetails] = useState([]);
 
     const token = localStorage.getItem('token');
 
     const fetchDetails = async () => {
-        const data = await fetch(`http://localhost:3000/api/v1/product/get-all?token=${token}`);
+        const data = await fetch(`http://localhost:3000/api/v1/product/get-out-of-stock?token=${token}`);
         const detailData = await data.json();
 
         setDetails(detailData.result.data);
@@ -116,4 +116,4 @@ function Products() {
     );
 }
 
-export default Products;
+export default ProductsOufOfStock;

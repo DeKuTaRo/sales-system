@@ -3,36 +3,36 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Sidebars from '../../components/Sidebars/Sidebars';
 
-function ProductsAdd() {
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [phone, setPhone] = useState('');
-    const [role, setRole] = useState('');
+function SupplierAdd() {
+    const [supplierCode, setSupplierCode] = useState('');
+    const [supplierName, setSupplierName] = useState('');
+    const [address, setAddress] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
 
-    const infoEmployee = {
-        name: name,
-        email: email,
-        phone: phone,
-        role: role,
-    };
-
-    // console.log(process.env.ADMIN_TOKEN);
-
-    const handleSubmit = (e) => {
-        // const { name, email, phone, role } = infoEmployee;
-        // console.log(infoEmployee);
-        e.preventDefault();
+    const infoSupplier = {
+        supplierCode: supplierCode,
+        supplierName: supplierName,
+        address: address,
+        phoneNumber: phoneNumber,
     };
     const token = localStorage.getItem('token');
 
-    useEffect(() => {
+    const handleSubmit = (event) => {
+        // const { name, email, phone, role } = infoEmployee;
+        // console.log(infoEmployee);
+        event.preventDefault();
         axios
-            .post(`http://localhost:3000/api/v1/account/register?token=${token}`, infoEmployee)
-            .then(() => console.log('User Created'))
+            .post(`http://localhost:3000/api/v1/supplier/register?token=${token}`, infoSupplier)
+            .then((res) => console.log(res))
             .catch((err) => {
                 console.error(err);
             });
-    });
+    };
+
+    // useEffect(() => {
+    //     handleSubmit();
+    //     // eslint-disable-next-line
+    // }, []);
 
     return (
         <div className="w-full">
@@ -43,48 +43,43 @@ function ProductsAdd() {
                         <h2>Profile</h2>
                     </div>
                     <div className="bg-white text-black">
-                        <div className="flex">
-                            <p className="p-3">Customer Details</p>
-                            <p className="p-3">Billing & shopping</p>
-                            <p className="p-3">Customer Admins</p>
-                        </div>
                         <div className="mt-4">
                             <form onSubmit={handleSubmit}>
                                 <div className="grid grid-cols-2 gap-2">
                                     <div className="p-3">
                                         <div className="mb-4">
                                             <label
-                                                htmlFor="fullName"
+                                                htmlFor="supplierCode"
                                                 className="font-normal text-sm text-[#2d2d2d] inline-block mb-2"
                                             >
-                                                Full Name
+                                                SupplierCode
                                             </label>
                                             <br />
                                             <input
                                                 type="text"
-                                                id="fullName"
-                                                placeholder="Name"
+                                                id="supplierCode"
+                                                placeholder="SupplierCode"
                                                 className="border-[1px] border-solid border-[#bfcbd9] text-[#494949] text-sm h-14 block w-full py-[6px] px-[12px] bg-white rounded"
                                                 onChange={(e) => {
-                                                    setName(e.target.value);
+                                                    setSupplierCode(e.target.value);
                                                 }}
                                             />
                                         </div>
                                         <div>
                                             <label
-                                                htmlFor="email"
+                                                htmlFor="supplierName"
                                                 className="font-normal text-sm text-[#2d2d2d] inline-block mb-2"
                                             >
-                                                Email
+                                                SupplierName
                                             </label>
                                             <br />
                                             <input
-                                                type="email"
-                                                id="email"
-                                                placeholder="Email"
+                                                type="text"
+                                                id="supplierName"
+                                                placeholder="SupplierName"
                                                 className="border-[1px] border-solid border-[#bfcbd9] text-[#494949] text-sm h-14 block w-full py-[6px] px-[12px] bg-white rounded"
                                                 onChange={(e) => {
-                                                    setEmail(e.target.value);
+                                                    setSupplierName(e.target.value);
                                                 }}
                                             />
                                         </div>
@@ -93,37 +88,37 @@ function ProductsAdd() {
                                     <div className="p-3">
                                         <div className="mb-4">
                                             <label
-                                                htmlFor="phone"
+                                                htmlFor="address"
                                                 className="font-normal text-sm text-[#2d2d2d] inline-block mb-2"
                                             >
-                                                Phone
+                                                Address
                                             </label>
                                             <br />
                                             <input
                                                 type="text"
-                                                id="phone"
-                                                placeholder="Phone"
+                                                id="address"
+                                                placeholder="Address"
                                                 className="border-[1px] border-solid border-[#bfcbd9] text-[#494949] text-sm h-14 block w-full py-[6px] px-[12px] bg-white rounded"
                                                 onChange={(e) => {
-                                                    setPhone(e.target.value);
+                                                    setAddress(e.target.value);
                                                 }}
                                             />
                                         </div>
                                         <div>
                                             <label
-                                                htmlFor="role"
+                                                htmlFor="phoneNumber"
                                                 className="font-normal text-sm text-[#2d2d2d] inline-block mb-2"
                                             >
-                                                Role
+                                                PhoneNumber
                                             </label>
                                             <br />
                                             <input
                                                 type="text"
-                                                id="role"
-                                                placeholder="Role"
+                                                id="phoneNumber"
+                                                placeholder="PhoneNumber"
                                                 className="border-[1px] border-solid border-[#bfcbd9] text-[#494949] text-sm h-14 block w-full py-[6px] px-[12px] bg-white rounded"
                                                 onChange={(e) => {
-                                                    setRole(e.target.value);
+                                                    setPhoneNumber(e.target.value);
                                                 }}
                                             />
                                         </div>
@@ -143,4 +138,4 @@ function ProductsAdd() {
     );
 }
 
-export default ProductsAdd;
+export default SupplierAdd;

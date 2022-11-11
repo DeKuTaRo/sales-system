@@ -39,7 +39,9 @@ function Sidebars() {
                 </li>
                 <li className="flex items-center ml-4 text-white text-lg font-medium pt-4">
                     <FaTty />
-                    <p className="ml-4">Nhà cung cấp</p>
+                    <Link to={'/supplier/'}>
+                        <p className="ml-4">Nhà cung cấp</p>
+                    </Link>
                 </li>
             </ul>
         </div>

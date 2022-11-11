@@ -1,22 +1,26 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { FaFilter, FaSearch, FaPlus, FaUpload } from 'react-icons/fa';
+import { FiRefreshCw } from 'react-icons/fi';
 
-import { FaFilter, FaSearch, FaPlus, FaUpload, FaStore } from 'react-icons/fa';
 import Sidebars from '../../components/Sidebars/Sidebars';
 import Headers from '../../components/Headers/Headers';
 
-function Products() {
+function Supplier() {
     const [details, setDetails] = useState([]);
+    const [suppliers, setSuppliers] = useState([]);
 
     const token = localStorage.getItem('token');
 
     const fetchDetails = async () => {
-        const data = await fetch(`http://localhost:3000/api/v1/product/get-all?token=${token}`);
+        const data = await fetch(`http://localhost:3000/api/v1/supplier/get-all?token=${token}`);
         const detailData = await data.json();
+        const arrayItems = detailData.result.data;
 
-        setDetails(detailData.result.data);
-        // console.log(detailData.result.data);
+        setDetails(arrayItems);
+        const supplierData = arrayItems.map((item) => item.supplier);
+        setSuppliers(supplierData);
     };
 
     useEffect(() => {
@@ -33,26 +37,18 @@ function Products() {
                     <div className="p-5 mb-2.5 flex items-center justify-between">
                         <div>
                             <button className="text-white bg-blue-600 text-sm border-[1px] border-solid border-transparent py-1.5 px-3 rounded-md inline-block font-normal uppercase hover:text-white hover:bg-blue-700">
-                                <Link to={'/productsAdd/'}>
+                                <Link to={'/supplierAdd/'}>
                                     <p className="flex items-center">
                                         <FaPlus className="pr-1" />
-                                        New product
+                                        New supplier
                                     </p>
                                 </Link>
                             </button>
                             <button className="text-white bg-blue-600 text-sm border-[1px] border-solid border-transparent py-1.5 px-3 rounded-md inline-block font-normal ml-4 uppercase hover:text-white hover:bg-blue-700">
                                 <p className="flex items-center">
                                     <FaUpload className="pr-1" />
-                                    import product
+                                    import supplier
                                 </p>
-                            </button>
-                            <button className="text-white bg-blue-600 text-sm border-[1px] border-solid border-transparent py-1.5 px-3 rounded-md inline-block font-normal ml-4 uppercase hover:text-white hover:bg-blue-700">
-                                <Link to={'/productsOutOfStock/'}>
-                                    <p className="flex items-center">
-                                        <FaStore className="pr-1" />
-                                        get-out-of-stock
-                                    </p>
-                                </Link>
                             </button>
                         </div>
                         <div>
@@ -67,41 +63,29 @@ function Products() {
                             <table className="w-full mt-8 text-[#008ece]">
                                 <thead>
                                     <tr className="text-left bg-[#f6f8fa]">
-                                        <th>Barcode</th>
-                                        <th className="bg-[#ebf5ff]">Name</th>
-                                        <th>Unit of Measure</th>
-                                        <th>Cost</th>
-                                        <th>Department</th>
+                                        <th>SupplierCode</th>
+                                        <th className="bg-[#ebf5ff]">SupplierName</th>
+                                        <th>Address</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {details.map((detail) => (
-                                        <tr key={detail._id}>
-                                            <td>{detail.barcode}</td>
+                                    {suppliers.map((supplier) => (
+                                        <tr key={supplier._id}>
                                             <td>
-                                                <Link to={'/products/' + detail.barcode}>
+                                                <Link to={'/supplierDetail/' + supplier.supplierCode}>
+                                                    {supplier.supplierCode}
+                                                </Link>
+                                            </td>
+                                            <td>
+                                                <Link to={'/supplierDetail/' + supplier.supplierCode}>
                                                     <p className="hover:text-[#004b6d] pb-3 pt-2">
-                                                        {detail.productName}
+                                                        {supplier.supplierName}
                                                     </p>
                                                 </Link>
                                             </td>
                                             <td>
-                                                <Link to={'/products/' + detail.barcode}>
-                                                    <p className="hover:text-[#004b6d] pb-3 pt-2">
-                                                        {detail.unitOfMeasure}
-                                                    </p>
-                                                </Link>
-                                            </td>
-                                            <td>
-                                                <Link to={'/products/' + detail.barcode}>
-                                                    <p className="hover:text-[#004b6d] pb-3 pt-2">{detail.unitCost}</p>
-                                                </Link>
-                                            </td>
-                                            <td>
-                                                <Link to={'/products/' + detail.barcode}>
-                                                    <p className="hover:text-[#004b6d] pb-3 pt-2">
-                                                        {detail.department}
-                                                    </p>
+                                                <Link to={'/supplierDetail/' + supplier.supplierCode}>
+                                                    <p className="hover:text-[#004b6d] pb-3 pt-2">{supplier.address}</p>
                                                 </Link>
                                             </td>
                                         </tr>
@@ -116,4 +100,4 @@ function Products() {
     );
 }
 
-export default Products;
+export default Supplier;

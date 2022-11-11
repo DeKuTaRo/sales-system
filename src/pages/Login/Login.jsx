@@ -4,6 +4,8 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Login() {
     const [userCode, setUserCode] = useState('');
@@ -14,7 +16,6 @@ function Login() {
         userCode: userCode,
         password: password,
     };
-    console.log(process.env.REACT_APP_BASE_URL);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -25,11 +26,48 @@ function Login() {
         axios
             .post(`http://localhost:3000/api/v1/account/login`, data)
             .then((res) => {
-                // console.log(token);
+                console.log(res);
                 localStorage.setItem('token', res.data.token);
+
+                // if (res.status === true && res.statusText === 'OK') {
+                // }
+                toast.success('🦄 Wow so easy!', {
+                    position: 'top-right',
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: 'dark',
+                });
+                // <ToastContainer
+                //     position="top-right"
+                //     autoClose={5000}
+                //     hideProgressBar={false}
+                //     newestOnTop={false}
+                //     closeOnClick
+                //     rtl={false}
+                //     pauseOnFocusLoss
+                //     draggable
+                //     pauseOnHover
+                //     theme="dark"
+                // />;
                 navigate(`/account`);
             })
-            .catch((err) => console.log(err));
+            .catch((err) => {
+                console.log(err);
+                toast.error('🦄 Wow so easy!', {
+                    position: 'top-right',
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: 'dark',
+                });
+            });
     };
 
     return (
@@ -41,13 +79,13 @@ function Login() {
             <div className="rounded-sm bg-white mx-6 py-6 px-8">
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
-                        <label htmlFor="email" className="font-normal text-sm text-[#2d2d2d] inline-block mb-2">
+                        <label htmlFor="userCode" className="font-normal text-sm text-[#2d2d2d] inline-block mb-2">
                             Email Address
                         </label>
                         <br />
                         <input
                             type="text"
-                            id="email"
+                            id="userCode"
                             value={userCode}
                             className="border-[1px] border-solid border-[#bfcbd9] text-black text-sm h-10 block w-full py-[6px] px-[12px] bg-white rounded"
                             onChange={(e) => setUserCode(e.target.value)}
@@ -60,7 +98,7 @@ function Login() {
                         </label>
                         <br />
                         <input
-                            type="text"
+                            type="password"
                             id="password"
                             value={password}
                             className="border-[1px] border-solid border-[#bfcbd9] text-[#494949] text-sm h-10 block w-full py-[6px] px-[12px] bg-white rounded"
