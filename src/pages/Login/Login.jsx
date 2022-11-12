@@ -4,11 +4,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-<<<<<<< HEAD
-import { ToastContainer, toast } from 'react-toastify';
-=======
 import { toast } from 'react-toastify';
->>>>>>> 59439bf70aa3f8494c9da8f3d58d84eba6348d23
 import 'react-toastify/dist/ReactToastify.css';
 
 function Login() {
@@ -28,80 +24,45 @@ function Login() {
             password: dataLogin.password,
         };
         axios
-            .post(`http://localhost:3000/api/v1/account/login`, data)
+            .post(`${process.env.REACT_APP_BASE_URL}/api/v1/account/login`, data)
             .then((res) => {
-<<<<<<< HEAD
-                console.log(res);
-                localStorage.setItem('token', res.data.token);
-
-                // if (res.status === true && res.statusText === 'OK') {
-                // }
-                toast.success('🦄 Wow so easy!', {
-                    position: 'top-right',
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: 'dark',
-                });
-                // <ToastContainer
-                //     position="top-right"
-                //     autoClose={5000}
-                //     hideProgressBar={false}
-                //     newestOnTop={false}
-                //     closeOnClick
-                //     rtl={false}
-                //     pauseOnFocusLoss
-                //     draggable
-                //     pauseOnHover
-                //     theme="dark"
-                // />;
-                navigate(`/account`);
-            })
-            .catch((err) => {
-                console.log(err);
-                toast.error('🦄 Wow so easy!', {
-                    position: 'top-right',
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: 'dark',
-                });
-=======
                 if (!res.data.status) {
                     toast.error(res.data.msg.vn, {
-                        position: "top-right",
+                        position: 'top-right',
                         autoClose: 5000,
                         hideProgressBar: false,
                         closeOnClick: true,
                         pauseOnHover: true,
                         draggable: true,
                         progress: undefined,
-                        theme: "light",
+                        theme: 'light',
                     });
                 } else {
                     localStorage.setItem('token', res.data.token);
                     toast.success(res.data.msg.vn, {
-                        position: "top-right",
+                        position: 'top-right',
                         autoClose: 5000,
                         hideProgressBar: false,
                         closeOnClick: true,
                         pauseOnHover: true,
                         draggable: true,
                         progress: undefined,
-                        theme: "light",
+                        theme: 'light',
                     });
                     navigate(`/account`);
                 }
             })
             .catch((err) => {
-                console.log(err)
->>>>>>> 59439bf70aa3f8494c9da8f3d58d84eba6348d23
+                toast.error(err.response.data.msg.vn, {
+                    position: 'top-right',
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: 'light',
+                });
             });
     };
 

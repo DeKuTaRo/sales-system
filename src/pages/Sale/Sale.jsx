@@ -30,11 +30,20 @@ function Sale() {
     return (
         <div className="app">
             <Navbar />
-            <div className="pos">
-                <Bill products={BillItems} empty={emptyBill} remove={removeProduct} />
+            <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-rows-2 gap-2">
+                    <div>
+                        <SearchBox />
+                    </div>
+
+                    <div>
+                        {' '}
+                        <Menu addItems={addItems} />
+                    </div>
+                </div>
+                {/* <Bill products={BillItems} empty={emptyBill} remove={removeProduct} /> */}
                 <Menu addItems={addItems} />
                 {/* <SearchBox /> */}
-
             </div>
         </div>
     );
