@@ -14,7 +14,7 @@ function Supplier() {
     const token = localStorage.getItem('token');
 
     const fetchDetails = async () => {
-        const data = await fetch(`http://localhost:3000/api/v1/supplier/get-all?token=${token}`);
+        const data = await fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/supplier/get-all?token=${token}`);
         const detailData = await data.json();
         const arrayItems = detailData.result.data;
 
@@ -60,7 +60,7 @@ function Supplier() {
 
                     <div className="bg-white border-[1px] border-solid border-[#dce1ef] rounded p-5 mb-2.5">
                         <div className="max-h-[67rem] overflow-hidden">
-                            <table className="w-full mt-8 text-[#008ece]">
+                            <table className="w-full mt-2.5 text-[#008ece]">
                                 <thead>
                                     <tr className="text-left bg-[#f6f8fa]">
                                         <th>SupplierCode</th>

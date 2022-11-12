@@ -5,6 +5,7 @@ import AccountAdd from './Account/AccountAdd';
 import AccountDetails from './Account/AccountDetails';
 import AccountMe from './Account/AccountMe';
 import Expenes from './Expenes/Expenes';
+import ChangePassword from './Login/ChangePassword';
 import Login from './Login/Login';
 import PageNotFound from './PageNotFound/PageNotFound';
 import Products from './Products/Products';
@@ -22,6 +23,7 @@ function Pages() {
     return (
         <Routes>
             <Route path="/login" element={<Login />} />
+            <Route path="/changePassword" element={<ChangePassword />} />
             <Route path="/account" element={<Account />} />
             <Route path="/accountAdd" element={<AccountAdd />} />
             <Route path="/accountDetails/:id" element={<AccountDetails />} />

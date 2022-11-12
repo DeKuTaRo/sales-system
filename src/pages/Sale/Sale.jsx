@@ -34,7 +34,6 @@ function Sale() {
                 <Bill products={BillItems} empty={emptyBill} remove={removeProduct} />
                 <Menu addItems={addItems} />
                 {/* <SearchBox /> */}
-
             </div>
         </div>
     );

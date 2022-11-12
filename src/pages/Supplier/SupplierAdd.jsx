@@ -1,7 +1,9 @@
 import React from 'react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Sidebars from '../../components/Sidebars/Sidebars';
+import { toast } from 'react-toastify';
 
 function SupplierAdd() {
     const [supplierCode, setSupplierCode] = useState('');
@@ -9,30 +11,47 @@ function SupplierAdd() {
     const [address, setAddress] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
 
-    const infoSupplier = {
-        supplierCode: supplierCode,
-        supplierName: supplierName,
-        address: address,
-        phoneNumber: phoneNumber,
-    };
+    const navigate = useNavigate();
     const token = localStorage.getItem('token');
 
     const handleSubmit = (event) => {
-        // const { name, email, phone, role } = infoEmployee;
-        // console.log(infoEmployee);
         event.preventDefault();
+        const infoSupplier = {
+            supplierCode: supplierCode,
+            supplierName: supplierName,
+            address: address,
+            phoneNumber: phoneNumber,
+        };
         axios
-            .post(`http://localhost:3000/api/v1/supplier/register?token=${token}`, infoSupplier)
-            .then((res) => console.log(res))
+            .post(`${process.env.REACT_APP_BASE_URL}/api/v1/supplier/register?token=${token}`, infoSupplier)
+            .then((res) => {
+                console.log(res);
+                toast.success(res.data.msg.en, {
+                    position: 'top-right',
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: 'dark',
+                });
+                navigate(`/supplier/`);
+            })
             .catch((err) => {
                 console.error(err);
+                toast.error(err, {
+                    position: 'top-right',
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: 'dark',
+                });
             });
     };
-
-    // useEffect(() => {
-    //     handleSubmit();
-    //     // eslint-disable-next-line
-    // }, []);
 
     return (
         <div className="w-full">

@@ -1,14 +1,25 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import Sidebars from '../../components/Sidebars/Sidebars';
+import { toast } from 'react-toastify';
+import axios from 'axios';
 
 function AccountMe() {
     const [details, setDetails] = useState([]);
+    const [email, setEmail] = useState('');
+    const [fullName, setFullName] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
+
+    const dataUpdateInfo = {
+        email: email,
+        fullName: fullName,
+        phoneNumber: phoneNumber,
+    };
 
     const token = localStorage.getItem('token');
 
     const fetchDetails = async () => {
-        const data = await fetch(`http://localhost:3000/api/v1/account/me?token=${token}`);
+        const data = await fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/account/me?token=${token}`);
         const detailData = await data.json();
 
         setDetails(detailData.data);
@@ -19,6 +30,40 @@ function AccountMe() {
         fetchDetails();
         // eslint-disable-next-line
     }, []);
+
+    const handleUpdateInfo = (e) => {
+        e.preventDefault();
+
+        axios
+            .put(`${process.env.REACT_APP_BASE_URL}/api/v1/account/update-me?token=${token}`, dataUpdateInfo)
+            .then((res) => {
+                console.log(res);
+                toast.success(res.data.msg.en, {
+                    position: 'top-right',
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: 'dark',
+                });
+            })
+            .catch((err) => {
+                console.error(err);
+                toast.error(err, {
+                    position: 'top-right',
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: 'dark',
+                });
+            });
+    };
+
     return (
         <div className="w-full">
             <div className="flex">
@@ -42,7 +87,8 @@ function AccountMe() {
                                         <input
                                             type="text"
                                             id="createdAt"
-                                            value={details.createdAt}
+                                            defaultValue={details.createdAt}
+                                            readOnly
                                             className="border-[1px] border-solid border-[#bfcbd9] text-[#494949] text-sm h-14 block w-full py-[6px] px-[12px] bg-white rounded"
                                         />
                                     </div>
@@ -57,8 +103,9 @@ function AccountMe() {
                                         <input
                                             type="email"
                                             id="email"
-                                            value={details.email}
+                                            defaultValue={details.email}
                                             className="border-[1px] border-solid border-[#bfcbd9] text-[#494949] text-sm h-14 block w-full py-[6px] px-[12px] bg-white rounded"
+                                            onChange={(e) => setEmail(e.target.value)}
                                         />
                                     </div>
                                     <div>
@@ -72,8 +119,9 @@ function AccountMe() {
                                         <input
                                             type="email"
                                             id="fullName"
-                                            value={details.fullName}
+                                            defaultValue={details.fullName}
                                             className="border-[1px] border-solid border-[#bfcbd9] text-[#494949] text-sm h-14 block w-full py-[6px] px-[12px] bg-white rounded"
+                                            onChange={(e) => setFullName(e.target.value)}
                                         />
                                     </div>
                                     <div>
@@ -87,7 +135,8 @@ function AccountMe() {
                                         <input
                                             type="email"
                                             id="lastLogin"
-                                            value={details.lastLogin}
+                                            defaultValue={details.lastLogin}
+                                            readOnly
                                             className="border-[1px] border-solid border-[#bfcbd9] text-[#494949] text-sm h-14 block w-full py-[6px] px-[12px] bg-white rounded"
                                         />
                                     </div>
@@ -102,8 +151,9 @@ function AccountMe() {
                                         <input
                                             type="email"
                                             id="phoneNumber"
-                                            value={details.phoneNumber}
+                                            defaultValue={details.phoneNumber}
                                             className="border-[1px] border-solid border-[#bfcbd9] text-[#494949] text-sm h-14 block w-full py-[6px] px-[12px] bg-white rounded"
+                                            onChange={(e) => setPhoneNumber(e.target.value)}
                                         />
                                     </div>
                                 </div>
@@ -120,7 +170,8 @@ function AccountMe() {
                                         <input
                                             type="text"
                                             id="preSalary"
-                                            value={details.preSalary}
+                                            defaultValue={details.preSalary}
+                                            readOnly
                                             className="border-[1px] border-solid border-[#bfcbd9] text-[#494949] text-sm h-14 block w-full py-[6px] px-[12px] bg-white rounded"
                                         />
                                     </div>
@@ -135,7 +186,8 @@ function AccountMe() {
                                         <input
                                             type="text"
                                             id="role"
-                                            value={details.role}
+                                            defaultValue={details.role}
+                                            readOnly
                                             className="border-[1px] border-solid border-[#bfcbd9] text-[#494949] text-sm h-14 block w-full py-[6px] px-[12px] bg-white rounded"
                                         />
                                     </div>
@@ -150,7 +202,8 @@ function AccountMe() {
                                         <input
                                             type="text"
                                             id="updatedAt"
-                                            value={details.updatedAt}
+                                            defaultValue={details.updatedAt}
+                                            readOnly
                                             className="border-[1px] border-solid border-[#bfcbd9] text-[#494949] text-sm h-14 block w-full py-[6px] px-[12px] bg-white rounded"
                                         />
                                     </div>
@@ -165,7 +218,8 @@ function AccountMe() {
                                         <input
                                             type="text"
                                             id="userCode"
-                                            value={details.userCode}
+                                            defaultValue={details.userCode}
+                                            readOnly
                                             className="border-[1px] border-solid border-[#bfcbd9] text-[#494949] text-sm h-14 block w-full py-[6px] px-[12px] bg-white rounded"
                                         />
                                     </div>
@@ -173,8 +227,11 @@ function AccountMe() {
                             </div>
                         </div>
                         <div className="p-3 text-right">
-                            <button className="p-3 text-white bg-[#03a9f4] text-lg border-[1px] border-solid border-transparent py-1.5 rounded-md inline-block font-normal uppercase hover:text-white hover:bg-[#0286c2]">
-                                Save
+                            <button
+                                className="p-3 text-white bg-yellow-500 text-lg border-[1px] border-solid border-transparent py-1.5 rounded-md inline-block font-normal uppercase hover:text-white hover:bg-yellow-700"
+                                onClick={handleUpdateInfo}
+                            >
+                                Update
                             </button>
                         </div>
                     </div>
