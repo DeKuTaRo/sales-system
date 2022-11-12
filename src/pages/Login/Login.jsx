@@ -46,7 +46,7 @@ function Login() {
                 if (res.data.payload.role === 'ADMIN') {
                     navigate(`/account`);
                 } else {
-                    navigate(`/sale/`);
+                    navigate(`/sale`);
                 }
             })
             .catch((err) => {

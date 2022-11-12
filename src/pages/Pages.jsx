@@ -18,8 +18,6 @@ import SupplierAdd from './Supplier/SupplierAdd';
 import SupplierDetail from './Supplier/SupplierDetail';
 
 function Pages() {
-    // const location = useLocation();
-
     return (
         <Routes>
             <Route path="/login" element={<Login />} />
