@@ -11,16 +11,16 @@ function Products() {
 
     const token = localStorage.getItem('token');
 
-    const fetchDetails = async () => {
-        const data = await fetch(`http://localhost:3000/api/v1/product/get-all?token=${token}`);
-        const detailData = await data.json();
+    // const fetchDetails = async () => {
+    //     const data = await fetch(`http://localhost:3000/api/v1/product/get-all?token=${token}`);
+    //     const detailData = await data.json();
 
-        setDetails(detailData.result.data);
-    };
+    //     setDetails(detailData.result.data);
+    // };
 
-    useEffect(() => {
-        fetchDetails();
-    }, []);
+    // useEffect(() => {
+    //     fetchDetails();
+    // }, []);
 
     return (
         <div className="w-full">

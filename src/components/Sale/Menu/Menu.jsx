@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './Menu.scss';
 import Product from '../Product/Product';
 import SearchBox from '../../SearchBox/SearchBox.component';
@@ -24,10 +24,13 @@ function Menu({ addItems }) {
 
         // setDetails(detailData.result.data);
         // console.log(detailData.result.data);
+
         setListProduct(data);
     };
 
-    getAllProduct();
+    useEffect(() => {
+        getAllProduct();
+    }, []);
     // console.log(listProduct)
     return (
         <div className="menu">
@@ -62,6 +65,11 @@ function Menu({ addItems }) {
                         <td>Laughing Bacchus Winecellars</td>
                         <td>Yoshi Tannamuri</td>
                         <td>Canada</td>
+                    </tr>
+                    <tr>
+                        <td>Magazzini Alimentari Riuniti</td>
+                        <td>Giovanni Rovelli</td>
+                        <td>Italy</td>
                     </tr>
                     <tr>
                         <td>Magazzini Alimentari Riuniti</td>
