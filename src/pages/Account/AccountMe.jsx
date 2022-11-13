@@ -28,6 +28,8 @@ function AccountMe() {
 
     useEffect(() => {
         fetchDetails();
+        return () => {};
+
         // eslint-disable-next-line
     }, []);
 

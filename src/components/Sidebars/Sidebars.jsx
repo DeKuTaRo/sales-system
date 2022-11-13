@@ -33,7 +33,7 @@ function Sidebars() {
                 </li>
                 <li className="flex items-center ml-4 text-white text-lg font-medium pt-4">
                     <FaGavel />
-                    <p className="ml-4 mr-4">Welcome Châu</p>
+                    <p className="ml-4 mr-4">Welcome</p>
                     <FaPowerOff onClick={handleLogOut} className="cursor-pointer" />
                 </li>
                 <li className="flex items-center ml-4 text-white text-lg font-medium pt-4">

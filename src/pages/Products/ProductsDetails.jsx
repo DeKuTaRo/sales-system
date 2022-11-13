@@ -23,9 +23,6 @@ function ProductsDetails() {
         unitCost: unitCost,
     };
 
-    const dataDeleteProduct = {
-        barcode: params.barcode,
-    };
     const fetchDetails = async () => {
         const data = await fetch(
             `${process.env.REACT_APP_BASE_URL}/api/v1/product/get-detail?token=${token}&barcode=${params.barcode}`,
@@ -33,12 +30,12 @@ function ProductsDetails() {
         const detailData = await data.json();
 
         setDetails(detailData.result.data);
-
-        console.log(detailData);
     };
 
     useEffect(() => {
         fetchDetails();
+        return () => {};
+
         // eslint-disable-next-line
     }, [params.barcode]);
 
@@ -122,7 +119,7 @@ function ProductsDetails() {
                     progress: undefined,
                     theme: 'dark',
                 });
-                navigate(`/products/`);
+                navigate(`/products`);
             })
             .catch((err) => {
                 console.error(err);

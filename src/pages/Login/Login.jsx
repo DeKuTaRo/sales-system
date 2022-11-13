@@ -10,7 +10,6 @@ import 'react-toastify/dist/ReactToastify.css';
 function Login() {
     const [userCode, setUserCode] = useState('');
     const [password, setPassword] = useState('');
-    const [isLoggedin, setIsLoggedin] = useState(false);
 
     const navigate = useNavigate();
     const dataLogin = {
@@ -30,7 +29,6 @@ function Login() {
                 // console.log(res);
                 // console.log(res.data.payload.role);
                 localStorage.setItem('token', res.data.token);
-                setIsLoggedin(true);
                 setUserCode('');
                 setPassword('');
                 toast.success(res.data.msg.en, {

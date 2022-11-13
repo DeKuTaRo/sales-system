@@ -1,12 +1,16 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import Sidebars from '../../components/Sidebars/Sidebars';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 function SupplierDetail() {
     const [suppliers, setSuppliers] = useState([]);
     const [productsRefs, setProductsRefs] = useState([]);
     let params = useParams();
+    const navigate = useNavigate();
+
     const token = localStorage.getItem('token');
 
     const fetchDetails = async () => {
@@ -21,12 +25,43 @@ function SupplierDetail() {
 
     useEffect(() => {
         fetchDetails();
+        return () => {};
+
         // eslint-disable-next-line
     }, [params.id]);
 
-    // const handleChange = (e) => {
-    //     setValueInput(e.target.value);
-    // };
+    const handleDeleteSupplier = (e) => {
+        e.preventDefault();
+        axios
+            .delete(`${process.env.REACT_APP_BASE_URL}/api/v1/supplier/delete/${params.id}?token=${token}`)
+            .then((res) => {
+                console.log(res);
+                toast.success(res.data.msg.en, {
+                    position: 'top-right',
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: 'dark',
+                });
+                navigate(`/products/`);
+            })
+            .catch((err) => {
+                console.error(err);
+                toast.error(err, {
+                    position: 'top-right',
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: 'dark',
+                });
+            });
+    };
 
     return (
         <div className="w-full">
@@ -95,7 +130,10 @@ function SupplierDetail() {
                             </div>
                         </div>
                         <div className="p-3 text-right">
-                            <button className="p-3 text-white bg-red-500 text-lg border-[1px] border-solid border-transparent py-1.5 rounded-md inline-block font-normal uppercase hover:text-white hover:bg-red-700">
+                            <button
+                                onClick={handleDeleteSupplier}
+                                className="p-3 text-white bg-red-500 text-lg border-[1px] border-solid border-transparent py-1.5 rounded-md inline-block font-normal uppercase hover:text-white hover:bg-red-700"
+                            >
                                 Delete
                             </button>
                         </div>

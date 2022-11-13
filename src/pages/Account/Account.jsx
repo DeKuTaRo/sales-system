@@ -2,14 +2,17 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { FaFilter, FaSearch, FaPlus, FaUpload, FaUserAlt } from 'react-icons/fa';
-import { FiRefreshCw } from 'react-icons/fi';
+import { FaFilter, FaPlus, FaUpload, FaUserAlt } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
 import Headers from '../../components/Headers/Headers';
 import Sidebars from '../../components/Sidebars/Sidebars';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 function Account() {
     const [details, setDetails] = useState([]);
+    const [userCode, setUserCode] = useState('');
+    const [selectedFile, setSelectedFile] = useState(null);
 
     const token = localStorage.getItem('token');
 
@@ -23,8 +26,57 @@ function Account() {
     useEffect(() => {
         fetchDetails();
         // eslint-disable-next-line
+        return () => {};
     }, []);
 
+    const handleDisableAccount = () => {
+        // console.log(userCode);
+    };
+
+    const handleImportAccountExample = (e) => {
+        e.preventDefault();
+        // axios.post(`${process.env.REACT_APP_BASE_URL}/api/v1/account/import?token=${token}`)
+    };
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const formData = new FormData();
+        formData.append('selectedFile', selectedFile);
+        try {
+            const response = await axios({
+                method: 'post',
+                url: `${process.env.REACT_APP_BASE_URL}/api/v1/account/import?token=${token}`,
+                file: formData,
+                headers: { 'Content-Type': 'multipart/form-data' },
+            });
+            console.log(response);
+            // axios.post(`${process.env.REACT_APP_BASE_URL}/api/v1/account/import?token=${token}`);
+        } catch (error) {
+            console.log(error);
+            toast.error(error, {
+                position: 'top-right',
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: 'dark',
+            });
+        }
+    };
+
+    const handleFileSelect = (event) => {
+        console.log(event.target.files);
+        console.log(event.target.files[0]);
+        setSelectedFile(event.target.files[0]);
+    };
+
+    // useEffect(() => {
+    //     handleDisableAccount();
+    //     // return () => {};
+    //     // eslint-disable-next-line
+    // }, []);
     return (
         <div className="w-full">
             <div className="flex">
@@ -41,7 +93,10 @@ function Account() {
                                     </p>
                                 </Link>
                             </button>
-                            <button className="text-white bg-blue-600 text-sm border-[1px] border-solid border-transparent py-1.5 px-3 rounded-md inline-block font-normal ml-4 uppercase hover:text-white hover:bg-blue-700">
+                            <button
+                                onClick={handleImportAccountExample}
+                                className="text-white bg-blue-600 text-sm border-[1px] border-solid border-transparent py-1.5 px-3 rounded-md inline-block font-normal ml-4 uppercase hover:text-white hover:bg-blue-700"
+                            >
                                 <p className="flex items-center">
                                     <FaUpload className="pr-1" />
                                     import account
@@ -55,9 +110,18 @@ function Account() {
                             </button>
                         </div>
                         <div>
-                            <button className="bg-[#f1f5f7] p-4 hover:text-[#415164] hover:bg-[#e1e4e6]">
+                            {/* <button className="bg-[#f1f5f7] p-4 hover:text-[#415164] hover:bg-[#e1e4e6]">
                                 <FaFilter />
-                            </button>
+                            </button> */}
+                            <form onSubmit={handleSubmit}>
+                                <input
+                                    type="file"
+                                    className="text-white bg-blue-600 text-sm border-[1px] border-solid border-transparent py-1.5 px-3 rounded-md inline-block font-normal uppercase hover:text-white hover:bg-blue-700"
+                                    onChange={handleFileSelect}
+                                    accept=".xlsx, .xls, .csv"
+                                />
+                                <input type="submit" value="Upload File" className="ml-2 cursor-pointer" />
+                            </form>
                         </div>
                     </div>
 
@@ -101,14 +165,9 @@ function Account() {
                                             </td>
                                             <td>
                                                 <MdDelete
-                                                    onClick={async () => {
-                                                        // console.log(detail.userCode);
-
-                                                        const url = await fetch(
-                                                            `http://localhost:3000/api/v1/account/disable?token=${token}&userCode=${detail.userCode}`,
-                                                        );
-                                                        const detailData = await url.json();
-                                                        console.log(detailData);
+                                                    onClick={() => {
+                                                        setUserCode(detail.userCode);
+                                                        handleDisableAccount();
                                                     }}
                                                 />
                                             </td>

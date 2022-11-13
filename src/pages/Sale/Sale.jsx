@@ -32,7 +32,7 @@ function Sale() {
     // };
 
     const token = localStorage.getItem('token');
-    const [transactionID , setTransactionID ] = useState('');
+    const [transactionID, setTransactionID] = useState('');
     const handleGetOrder = async () => {
         await axios
             .post(`${process.env.REACT_APP_BASE_URL}/api/v1/transaction/tran?token=${token}`)
@@ -74,14 +74,14 @@ function Sale() {
                     theme: 'light',
                 });
             });
-    }
+    };
 
     const handleNewOrder = async () => {
         await axios
             .post(`${process.env.REACT_APP_BASE_URL}/api/v1/transaction/new?token=${token}`)
             .then((res) => {
                 if (res.data.status) {
-                    setTransId(res.data.transaction.transactionID);
+                    setTransactionID(res.data.transaction.transactionID);
                     toast.success(res.data.msg.vn, {
                         position: 'top-right',
                         autoClose: 5000,

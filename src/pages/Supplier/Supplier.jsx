@@ -1,13 +1,13 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FaFilter, FaSearch, FaPlus, FaUpload } from 'react-icons/fa';
-import { FiRefreshCw } from 'react-icons/fi';
+import { FaFilter, FaPlus, FaUpload } from 'react-icons/fa';
 
 import Sidebars from '../../components/Sidebars/Sidebars';
 import Headers from '../../components/Headers/Headers';
 
 function Supplier() {
+    // eslint-disable-next-line
     const [details, setDetails] = useState([]);
     const [suppliers, setSuppliers] = useState([]);
 
@@ -25,6 +25,8 @@ function Supplier() {
 
     useEffect(() => {
         fetchDetails();
+        return () => {};
+
         // eslint-disable-next-line
     }, []);
 

@@ -18,6 +18,8 @@ function AccountDetails() {
 
     useEffect(() => {
         fetchDetails();
+        return () => {};
+
         // eslint-disable-next-line
     }, [params.id]);
     return (

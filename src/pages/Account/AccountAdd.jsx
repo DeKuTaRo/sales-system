@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import axios from 'axios';
 import Sidebars from '../../components/Sidebars/Sidebars';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Select from 'react-select';
 import { toast } from 'react-toastify';
 
@@ -14,7 +14,7 @@ function AccountAdd() {
     const [password, setPassword] = useState('');
     const [role, setRole] = useState('');
 
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
     const registerAccount = {
         userCode: userCode,
@@ -76,7 +76,7 @@ function AccountAdd() {
                     theme: 'dark',
                 });
             });
-        // navigate('/account');
+        navigate('/account');
     };
     return (
         <div className="w-full">

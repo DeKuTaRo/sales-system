@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { FaFilter, FaSearch, FaPlus, FaUpload, FaStore } from 'react-icons/fa';
+import { FaFilter, FaPlus, FaUpload, FaStore } from 'react-icons/fa';
 import Sidebars from '../../components/Sidebars/Sidebars';
 import Headers from '../../components/Headers/Headers';
 
@@ -21,6 +21,8 @@ function ProductsOufOfStock() {
 
     useEffect(() => {
         fetchDetails();
+        return () => {};
+
         // eslint-disable-next-line
     }, []);
 
