@@ -1,11 +1,16 @@
 import React from 'react';
+
 import { FiSearch } from 'react-icons/fi';
 import { BsPersonCircle } from 'react-icons/bs';
-import { FaShare, FaCheckSquare, FaRegBell } from 'react-icons/fa';
-import { ImClock } from 'react-icons/im';
+import { FaLock, FaUserAlt, FaTasks, FaTty } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css';
+import AccountExample from '../../assests/files/account-example.xlsx';
+import SupplierExample from '../../assests/files/supplier-example.xlsx';
+import ProductExample from '../../assests/files/product-example.xlsx';
 
-function Headers() {
+function Headers({ id, body }) {
     return (
         <div className=" bg-[#e3e8ee]">
             <div className="flex justify-between">
@@ -19,22 +24,34 @@ function Headers() {
                     </button>
                 </div>
                 <div className="flex items-center">
-                    <p className="px-4">Customer area</p>
-                    <Link to={'/account/me/'} className="px-4">
-                        <BsPersonCircle />
-                    </Link>
-                    <a href="/" className="px-4">
-                        <FaShare />
-                    </a>
-                    <a href="/" className="px-4">
-                        <FaCheckSquare />
-                    </a>
-                    <a href="/" className="px-4">
-                        <ImClock />
-                    </a>
-                    <a href="/" className="px-4">
-                        <FaRegBell />
-                    </a>
+                    <Tippy content="details-account" placement="bottom">
+                        <Link to={'/account/me/'} className="px-3">
+                            <BsPersonCircle />
+                        </Link>
+                    </Tippy>
+                    <Tippy content="change-password" placement="bottom">
+                        <Link to={`/changePassword/`} className="px-3">
+                            <FaLock />
+                        </Link>
+                    </Tippy>
+                    <Tippy content="account-excel-example" placement="bottom">
+                        <a href={AccountExample} download="account-example.xlsx" className="px-3 cursor-pointer">
+                            Account-Excel-Example
+                            <FaUserAlt className="m-auto" />
+                        </a>
+                    </Tippy>
+                    <Tippy content="supplier-excel-example" placement="bottom">
+                        <a href={SupplierExample} download="supplier-example.xlsx" className="px-3 cursor-pointer">
+                            Supplier-Excel-Example
+                            <FaTasks className="m-auto" />
+                        </a>
+                    </Tippy>
+                    <Tippy content="product-excel-example" placement="bottom">
+                        <a href={ProductExample} download="product-example.xlsx" className="px-3 cursor-pointer">
+                            Product-Excel-Example
+                            <FaTty className="m-auto" />
+                        </a>
+                    </Tippy>
                 </div>
             </div>
         </div>

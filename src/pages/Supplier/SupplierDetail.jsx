@@ -6,14 +6,12 @@ import Sidebars from '../../components/Sidebars/Sidebars';
 function SupplierDetail() {
     const [suppliers, setSuppliers] = useState([]);
     const [productsRefs, setProductsRefs] = useState([]);
-    const [valueInput, setValueInput] = useState('');
     let params = useParams();
-    // console.log(params);
     const token = localStorage.getItem('token');
 
     const fetchDetails = async () => {
         const data = await fetch(
-            `http://localhost:3000/api/v1/supplier/get-detail?token=${token}&supplierCode=${params.id}`,
+            `${process.env.REACT_APP_BASE_URL}/api/v1/supplier/get-detail?token=${token}&supplierCode=${params.id}`,
         );
         const detailData = await data.json();
 
@@ -55,7 +53,7 @@ function SupplierDetail() {
                                             id="fullName"
                                             defaultValue={suppliers.supplierCode}
                                             className="border-[1px] border-solid border-[#bfcbd9] text-[#494949] text-sm h-14 block w-full py-[6px] px-[12px] bg-white rounded"
-                                            // onChange={handleChange}
+                                            readOnly
                                         />
                                     </div>
                                     <div>
@@ -71,6 +69,7 @@ function SupplierDetail() {
                                             id="email"
                                             defaultValue={suppliers.supplierName}
                                             className="border-[1px] border-solid border-[#bfcbd9] text-[#494949] text-sm h-14 block w-full py-[6px] px-[12px] bg-white rounded"
+                                            readOnly
                                         />
                                     </div>
                                 </div>
@@ -89,14 +88,15 @@ function SupplierDetail() {
                                             id="phone"
                                             defaultValue={suppliers.address}
                                             className="border-[1px] border-solid border-[#bfcbd9] text-[#494949] text-sm h-14 block w-full py-[6px] px-[12px] bg-white rounded"
+                                            readOnly
                                         />
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div className="p-3 text-right">
-                            <button className="p-3 text-white bg-[#03a9f4] text-lg border-[1px] border-solid border-transparent py-1.5 rounded-md inline-block font-normal uppercase hover:text-white hover:bg-[#0286c2]">
-                                Save
+                            <button className="p-3 text-white bg-red-500 text-lg border-[1px] border-solid border-transparent py-1.5 rounded-md inline-block font-normal uppercase hover:text-white hover:bg-red-700">
+                                Delete
                             </button>
                         </div>
                         <div>

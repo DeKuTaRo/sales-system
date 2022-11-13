@@ -10,6 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 function Login() {
     const [userCode, setUserCode] = useState('');
     const [password, setPassword] = useState('');
+    const [isLoggedin, setIsLoggedin] = useState(false);
 
     const navigate = useNavigate();
     const dataLogin = {
@@ -26,34 +27,13 @@ function Login() {
         axios
             .post(`${process.env.REACT_APP_BASE_URL}/api/v1/account/login`, data)
             .then((res) => {
-                if (!res.data.status) {
-                    toast.error(res.data.msg.vn, {
-                        position: 'top-right',
-                        autoClose: 5000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: 'light',
-                    });
-                } else {
-                    localStorage.setItem('token', res.data.token);
-                    toast.success(res.data.msg.vn, {
-                        position: 'top-right',
-                        autoClose: 5000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: 'light',
-                    });
-                    navigate(`/account`);
-                }
-            })
-            .catch((err) => {
-                toast.error(err.response.data.msg.vn, {
+                // console.log(res);
+                // console.log(res.data.payload.role);
+                localStorage.setItem('token', res.data.token);
+                setIsLoggedin(true);
+                setUserCode('');
+                setPassword('');
+                toast.success(res.data.msg.en, {
                     position: 'top-right',
                     autoClose: 5000,
                     hideProgressBar: false,
@@ -61,7 +41,25 @@ function Login() {
                     pauseOnHover: true,
                     draggable: true,
                     progress: undefined,
-                    theme: 'light',
+                    theme: 'dark',
+                });
+                if (res.data.payload.role === 'ADMIN') {
+                    navigate(`/account`);
+                } else {
+                    navigate(`/sale`);
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+                toast.error(err, {
+                    position: 'top-right',
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: 'dark',
                 });
             });
     };
@@ -76,7 +74,7 @@ function Login() {
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
                         <label htmlFor="userCode" className="font-normal text-sm text-[#2d2d2d] inline-block mb-2">
-                            Email Address
+                            UserCode
                         </label>
                         <br />
                         <input

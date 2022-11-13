@@ -4,7 +4,7 @@ import Product from '../Product/Product';
 import SearchBox from '../../SearchBox/SearchBox.component';
 import axios from 'axios';
 import { useState } from 'react';
-import { Button } from '@material-tailwind/react';
+
 function Menu({ addItems }) {
     const clickHandler = (product) => {
         addItems(product);

@@ -1,38 +1,60 @@
 import React from 'react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import Sidebars from '../../components/Sidebars/Sidebars';
+import { toast } from 'react-toastify';
 
 function ProductsAdd() {
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [phone, setPhone] = useState('');
-    const [role, setRole] = useState('');
+    const [barcode, setBarcode] = useState('');
+    const [productName, setProductName] = useState('');
+    const [UOM, setUOM] = useState('');
+    const [department, setDepartment] = useState('');
+    const [supplierCode, setSupplierCode] = useState('');
+    const [unitCost, setUnitCost] = useState('');
+    const [quantity, setQuantity] = useState('');
 
-    const infoEmployee = {
-        name: name,
-        email: email,
-        phone: phone,
-        role: role,
-    };
-
-    // console.log(process.env.ADMIN_TOKEN);
-
-    const handleSubmit = (e) => {
-        // const { name, email, phone, role } = infoEmployee;
-        // console.log(infoEmployee);
-        e.preventDefault();
-    };
     const token = localStorage.getItem('token');
 
-    useEffect(() => {
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const infoProduct = {
+            barcode: barcode,
+            productName: productName,
+            UOM: UOM,
+            department: department,
+            supplierCode: supplierCode,
+            unitCost: unitCost,
+            quantity: quantity,
+        };
         axios
-            .post(`http://localhost:3000/api/v1/account/register?token=${token}`, infoEmployee)
-            .then(() => console.log('User Created'))
+            .post(`${process.env.REACT_APP_BASE_URL}/api/v1/product/register?token=${token}`, infoProduct)
+            .then((res) => {
+                console.log(res);
+                toast.success(res.data.msg.en, {
+                    position: 'top-right',
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: 'dark',
+                });
+            })
             .catch((err) => {
                 console.error(err);
+                toast.error(err, {
+                    position: 'top-right',
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: 'dark',
+                });
             });
-    });
+    };
 
     return (
         <div className="w-full">
@@ -40,51 +62,82 @@ function ProductsAdd() {
                 <Sidebars />
                 <div className="w-full p-4">
                     <div className="bg-[#f9fafc] p-4 text-[#656565] font-normal text-lg rounded-t">
-                        <h2>Profile</h2>
+                        <h2>Products Add</h2>
                     </div>
                     <div className="bg-white text-black">
-                        <div className="flex">
-                            <p className="p-3">Customer Details</p>
-                            <p className="p-3">Billing & shopping</p>
-                            <p className="p-3">Customer Admins</p>
-                        </div>
                         <div className="mt-4">
                             <form onSubmit={handleSubmit}>
                                 <div className="grid grid-cols-2 gap-2">
                                     <div className="p-3">
                                         <div className="mb-4">
                                             <label
-                                                htmlFor="fullName"
+                                                htmlFor="barCode"
                                                 className="font-normal text-sm text-[#2d2d2d] inline-block mb-2"
                                             >
-                                                Full Name
+                                                Barcode
                                             </label>
                                             <br />
                                             <input
                                                 type="text"
-                                                id="fullName"
-                                                placeholder="Name"
+                                                id="barCode"
+                                                placeholder="Barcode"
                                                 className="border-[1px] border-solid border-[#bfcbd9] text-[#494949] text-sm h-14 block w-full py-[6px] px-[12px] bg-white rounded"
                                                 onChange={(e) => {
-                                                    setName(e.target.value);
+                                                    setBarcode(e.target.value);
                                                 }}
                                             />
                                         </div>
-                                        <div>
+                                        <div className="mb-4">
                                             <label
-                                                htmlFor="email"
+                                                htmlFor="productName"
                                                 className="font-normal text-sm text-[#2d2d2d] inline-block mb-2"
                                             >
-                                                Email
+                                                ProductName
                                             </label>
                                             <br />
                                             <input
-                                                type="email"
-                                                id="email"
-                                                placeholder="Email"
+                                                type="text"
+                                                id="productName"
+                                                placeholder="ProductName"
                                                 className="border-[1px] border-solid border-[#bfcbd9] text-[#494949] text-sm h-14 block w-full py-[6px] px-[12px] bg-white rounded"
                                                 onChange={(e) => {
-                                                    setEmail(e.target.value);
+                                                    setProductName(e.target.value);
+                                                }}
+                                            />
+                                        </div>
+                                        <div className="mb-4">
+                                            <label
+                                                htmlFor="unitOfMeasure"
+                                                className="font-normal text-sm text-[#2d2d2d] inline-block mb-2"
+                                            >
+                                                Unit of Measure
+                                            </label>
+                                            <br />
+                                            <input
+                                                type="text"
+                                                id="unitOfMeasure"
+                                                placeholder="GOI ... HOP ... "
+                                                className="border-[1px] border-solid border-[#bfcbd9] text-[#494949] text-sm h-14 block w-full py-[6px] px-[12px] bg-white rounded"
+                                                onChange={(e) => {
+                                                    setUOM(e.target.value);
+                                                }}
+                                            />
+                                        </div>
+                                        <div className="mb-4">
+                                            <label
+                                                htmlFor="department"
+                                                className="font-normal text-sm text-[#2d2d2d] inline-block mb-2"
+                                            >
+                                                Department
+                                            </label>
+                                            <br />
+                                            <input
+                                                type="text"
+                                                id="department"
+                                                placeholder="Department"
+                                                className="border-[1px] border-solid border-[#bfcbd9] text-[#494949] text-sm h-14 block w-full py-[6px] px-[12px] bg-white rounded"
+                                                onChange={(e) => {
+                                                    setDepartment(e.target.value);
                                                 }}
                                             />
                                         </div>
@@ -93,37 +146,55 @@ function ProductsAdd() {
                                     <div className="p-3">
                                         <div className="mb-4">
                                             <label
-                                                htmlFor="phone"
+                                                htmlFor="supplierCode"
                                                 className="font-normal text-sm text-[#2d2d2d] inline-block mb-2"
                                             >
-                                                Phone
+                                                SupplierCode
                                             </label>
                                             <br />
                                             <input
                                                 type="text"
-                                                id="phone"
-                                                placeholder="Phone"
+                                                id="supplierCode"
+                                                placeholder="Supplier Code"
                                                 className="border-[1px] border-solid border-[#bfcbd9] text-[#494949] text-sm h-14 block w-full py-[6px] px-[12px] bg-white rounded"
                                                 onChange={(e) => {
-                                                    setPhone(e.target.value);
+                                                    setSupplierCode(e.target.value);
                                                 }}
                                             />
                                         </div>
-                                        <div>
+                                        <div className="mb-4">
                                             <label
-                                                htmlFor="role"
+                                                htmlFor="unitCost"
                                                 className="font-normal text-sm text-[#2d2d2d] inline-block mb-2"
                                             >
-                                                Role
+                                                Unit Cost
                                             </label>
                                             <br />
                                             <input
                                                 type="text"
-                                                id="role"
-                                                placeholder="Role"
+                                                id="unitCost"
+                                                placeholder="Unit Cost"
                                                 className="border-[1px] border-solid border-[#bfcbd9] text-[#494949] text-sm h-14 block w-full py-[6px] px-[12px] bg-white rounded"
                                                 onChange={(e) => {
-                                                    setRole(e.target.value);
+                                                    setUnitCost(e.target.value);
+                                                }}
+                                            />
+                                        </div>
+                                        <div className="mb-4">
+                                            <label
+                                                htmlFor="quantity"
+                                                className="font-normal text-sm text-[#2d2d2d] inline-block mb-2"
+                                            >
+                                                Quantity
+                                            </label>
+                                            <br />
+                                            <input
+                                                type="text"
+                                                id="quantity"
+                                                placeholder="Quantity"
+                                                className="border-[1px] border-solid border-[#bfcbd9] text-[#494949] text-sm h-14 block w-full py-[6px] px-[12px] bg-white rounded"
+                                                onChange={(e) => {
+                                                    setQuantity(e.target.value);
                                                 }}
                                             />
                                         </div>

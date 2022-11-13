@@ -12,7 +12,7 @@ function ProductsOufOfStock() {
     const token = localStorage.getItem('token');
 
     const fetchDetails = async () => {
-        const data = await fetch(`http://localhost:3000/api/v1/product/get-out-of-stock?token=${token}`);
+        const data = await fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/product/get-out-of-stock?token=${token}`);
         const detailData = await data.json();
 
         setDetails(detailData.result.data);

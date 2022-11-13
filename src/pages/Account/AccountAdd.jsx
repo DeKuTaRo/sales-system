@@ -4,6 +4,7 @@ import axios from 'axios';
 import Sidebars from '../../components/Sidebars/Sidebars';
 // import { useNavigate } from 'react-router-dom';
 import Select from 'react-select';
+import { toast } from 'react-toastify';
 
 function AccountAdd() {
     const [userCode, setUserCode] = useState('');
@@ -35,6 +36,8 @@ function AccountAdd() {
         },
     ];
 
+    const token = localStorage.getItem('token');
+
     const handleSubmit = (e) => {
         e.preventDefault();
         const data = {
@@ -46,9 +49,33 @@ function AccountAdd() {
             role: registerAccount.role,
         };
         axios
-            .post(`http://localhost:3000/api/v1/account/register?token=${process.env.REACT_APP_ADMIN_TOKEN}`, data)
-            .then((res) => console.log(res))
-            .catch((err) => console.log(err));
+            .post(`${process.env.REACT_APP_BASE_URL}/api/v1/account/register?token=${token}`, data)
+            .then((res) => {
+                console.log(res);
+                toast.success(res.data.msg.en, {
+                    position: 'top-right',
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: 'dark',
+                });
+            })
+            .catch((err) => {
+                console.log(err);
+                toast.error(err, {
+                    position: 'top-right',
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: 'dark',
+                });
+            });
         // navigate('/account');
     };
     return (
@@ -148,7 +175,7 @@ function AccountAdd() {
                                             </label>
                                             <br />
                                             <input
-                                                type="text"
+                                                type="password"
                                                 id="password"
                                                 placeholder="Password"
                                                 className="border-[1px] border-solid border-[#bfcbd9] text-[#494949] text-sm h-14 block w-full py-[6px] px-[12px] bg-white rounded"
